@@ -1,0 +1,27 @@
+.aboutme__data {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 66px 0 0 0;
+}
+
+@media screen and (max-width: 768px) {
+   .aboutme__data {
+      align-items: start;
+   }
+}
+
+@media screen and (max-width: 550px) {
+   .aboutme__data {
+      flex-direction: column-reverse;
+      justify-content: center;
+      gap: 40px;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .aboutme__data {
+      padding-top: 59px;
+      gap: 44px;
+   }
+}

@@ -1,0 +1,24 @@
+.aboutme__job {
+   padding: 0;
+   margin: 0 0 26px 0;
+   font-family: 'Inter';
+   font-style: normal;
+   font-size: 18px;
+   line-height: 1.11;
+   font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+   .aboutme__job {
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+   .aboutme__job {
+      font-size: 11px;
+      line-height: 1.45;
+   }
+}

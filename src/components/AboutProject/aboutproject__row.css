@@ -1,0 +1,20 @@
+.aboutproject__row {
+   height: 38px;
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 14px;
+   text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+   .aboutproject__row {
+      height: 36px;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .aboutproject__row {
+      height: 35px;
+   }
+}

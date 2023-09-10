@@ -1,0 +1,33 @@
+.aboutme__content {
+   padding: 0;
+   margin: 0 10px 75px 0;
+   font-family: 'Inter';
+   font-style: normal;
+   font-size: 14px;
+   line-height: 1.57;
+   font-weight: 400;
+}
+
+@media screen and (max-width: 768px) {
+   .aboutme__content {
+      font-size: 12px;
+      line-height: 1.5;
+      margin-bottom: 68px;
+      max-width: 364px;
+   }
+}
+
+@media screen and (max-width: 550px) {
+   .aboutme__content {
+      max-width: 100%;
+      width: 100%;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .aboutme__content {
+      font-size: 11px;
+      line-height: 1.45;
+      margin-bottom: 39px;
+   }
+}

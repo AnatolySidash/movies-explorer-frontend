@@ -1,0 +1,10 @@
+.aboutme__info {
+   max-width: 600px;
+}
+
+@media screen and (max-width: 550px) {
+   .aboutme__info {
+      max-width: 100%;
+      width: 100%;
+   }
+}

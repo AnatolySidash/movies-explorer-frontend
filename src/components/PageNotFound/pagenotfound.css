@@ -1,0 +1,22 @@
+.pagenotfound {
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-end;
+   align-items: center;
+   height: 100vh;
+}
+
+@media screen and (max-width: 768px) {
+   .pagenotfound {
+      justify-content: center;
+      padding-top: 250px;
+      height: calc(100vh - 250px)
+   }
+}
+
+@media screen and (max-width: 350px) {
+   .pagenotfound {
+      padding-top: 332px;
+      height: calc(100vh - 332px)
+   }
+}

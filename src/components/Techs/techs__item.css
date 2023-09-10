@@ -1,0 +1,23 @@
+.techs__item {
+   width: 90px;
+   height: 60px;
+   background-color: #303030;
+   border-radius: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-family: 'Inter';
+   font-style: normal;
+   font-size: 14px;
+   font-weight: 400;
+   letter-spacing: -0.56px;
+}
+
+@media screen and (max-width: 768px) {
+   .techs__item {
+      width: 84px;
+      height: 57px;
+      font-size: 12px;
+      letter-spacing: -0.48px;
+   }
+}

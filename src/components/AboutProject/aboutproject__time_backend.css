@@ -1,0 +1,27 @@
+.aboutproject__time_backend {
+   width: 20%;
+   font-family: 'Inter';
+   font-style: normal;
+   font-weight: 400;
+   color: #000;
+   background-color: #3DDC84;
+}
+
+@media screen and (max-width: 768px) {
+   .aboutproject__time_backend {
+      width: 21%;
+   }
+}
+
+@media screen and (max-width: 550px) {
+   .aboutproject__time_backend {
+      width: 30%;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .aboutproject__time_backend {
+      width: 35%;
+      font-size: 11px;
+   }
+}
