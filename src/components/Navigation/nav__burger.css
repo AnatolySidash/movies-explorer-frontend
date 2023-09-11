@@ -7,6 +7,12 @@
    outline: none;
    display: none;
    z-index: 4;
+   cursor: pointer;
+   transition: opacity 0.3s ease-in-out;
+}
+
+.nav__burger:hover {
+   opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {

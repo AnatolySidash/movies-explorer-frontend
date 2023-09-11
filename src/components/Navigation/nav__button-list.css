@@ -14,7 +14,7 @@
       visibility: hidden;
       top: 0;
       width: 520px;
-      height: calc(1024px - 159px);
+      height: calc(100vh - 159px);
       background-color: #202020;
       flex-direction: column;
       align-items: center;

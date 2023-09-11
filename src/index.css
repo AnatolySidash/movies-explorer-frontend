@@ -29,6 +29,7 @@
 @import url(./components/Navigation/nav__button_green.css);
 @import url(./components/Navigation/nav__button_gray.css);
 @import url(./components/Navigation/nav__burger.css);
+@import url(./components/Navigation/nav__logo.css);
 
 
 /* ------Promo------ */
@@ -82,6 +83,7 @@
 @import url(./components/Portfolio/portfolio__item.css);
 @import url(./components/Portfolio/portfolio__name.css);
 @import url(./components/Portfolio/portfolio__link.css);
+@import url(./components/Portfolio/portfolio__name-link.css);
 
 /* ------SearchForm------ */
 
@@ -162,3 +164,7 @@
 @import url(./components/Footer/footer__copyright.css);
 @import url(./components/Footer/footer__list.css);
 @import url(./components/Footer/footer__link.css);
+
+   {
+   outline: 1px solid red;
+}

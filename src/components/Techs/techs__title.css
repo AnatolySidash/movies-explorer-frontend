@@ -15,7 +15,7 @@
    }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
    .techs__title {
       font-size: 30px;
       margin-bottom: 25px;

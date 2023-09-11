@@ -5,6 +5,11 @@
    font-weight: 400;
    position: relative;
    cursor: pointer;
+   transition: opacity 0.3s ease-in-out;
+}
+
+.searchform__label:hover {
+   opacity: 0.8;
 }
 
 .searchform__label::before {

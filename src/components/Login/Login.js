@@ -1,12 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../../images/01_header/logo.svg';
 
 function Login() {
 
    return (
       <section className="login">
-         <img src={logo} alt="Логотип сайта в виде зелёного кольца" className="logo" />
+         <NavLink to="/" className="nav__logo">
+            <img src={logo} alt="Логотип сайта в виде зелёного кольца" className="logo" />
+         </NavLink>
          <h2 className="login__title">Рады видеть!</h2>
          <form className="form">
             <label className="login__item">E-mail

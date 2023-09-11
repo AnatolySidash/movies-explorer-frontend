@@ -11,7 +11,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 550px) {
     .profile__form {
         width: 300px;
     }
