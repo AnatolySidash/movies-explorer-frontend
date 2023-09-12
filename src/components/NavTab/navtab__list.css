@@ -1,17 +1,19 @@
-.navtab {
+.navtab__list {
+   padding: 0;
+   list-style: none;
    display: flex;
    gap: 10px;
    margin: 151px 0 30px 0;
 }
 
 @media screen and (max-width: 768px) {
-   .navtab {
+   .navtab__list {
       margin-top: 314px;
    }
 }
 
 @media screen and (max-width: 320px) {
-   .navtab {
+   .navtab__list {
       margin-top: 212px;
       margin-bottom: 18px;
       gap: 6px;

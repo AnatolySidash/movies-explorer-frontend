@@ -7,8 +7,8 @@ function Profile() {
    return (
       <>
          <Header />
-         <section className="profile">
-            <h2 className="profile__greeting">Привет, Анатолий</h2>
+         <main className="profile">
+            <h1 className="profile__greeting">Привет, Анатолий</h1>
             <form className="profile__form">
                <label className="profile__item">Имя
                   <input
@@ -33,9 +33,9 @@ function Profile() {
                <button type="submit" className="profile__button">Редактировать</button>
             </form>
             <Link to="/">
-               <button className="profile__exit-button">Выйти из аккаунта</button>
+               <button type="button" className="profile__exit-button">Выйти из аккаунта</button>
             </Link>
-         </section >
+         </main >
       </>
    )
 }

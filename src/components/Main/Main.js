@@ -7,11 +7,14 @@ import Portfolio from '../../components/Portfolio/Portfolio.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Main() {
+function Main({ isOpen, onBurgerClick }) {
 
    return (
       <main className="main">
-         <Header />
+         <Header
+            isOpen={isOpen}
+            onBurgerClick={onBurgerClick}
+         />
          <Promo />
          <AboutProject />
          <Techs />

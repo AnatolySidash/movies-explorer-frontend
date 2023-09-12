@@ -5,10 +5,10 @@ function Techs() {
    return (
       <section className="techs" id="techs">
          <h2 className="section__title">Технологии</h2>
-         <article className="techs__info">
+         <div className="techs__info">
             <h3 className="techs__title">7 технологий</h3>
             <p className="techs__text">На&nbsp;курсе веб-разработки мы&nbsp;освоили технологии, которые применили в&nbsp;дипломном проекте.</p>
-         </article>
+         </div>
          <ul className="techs__list">
             <li className="techs__item">HTML</li>
             <li className="techs__item">CSS</li>

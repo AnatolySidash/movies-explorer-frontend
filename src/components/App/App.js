@@ -11,6 +11,16 @@ import PageNotFound from './../PageNotFound/PageNotFound.js';
 
 function App() {
 
+  const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+  function handleMobileMenuOpen() {
+    if (isMobileMenuOpen) {
+      setMobileMenuOpen(false);
+    } else {
+      setMobileMenuOpen(true);
+    }
+  }
+
   return (
     <div className="root">
       <div className="page">
@@ -18,14 +28,17 @@ function App() {
         <Routes>
 
           <Route path="/" element={
-            <Main />
+            <Main
+              isOpen={isMobileMenuOpen}
+              onBurgerClick={handleMobileMenuOpen}
+            />
           } />
 
           <Route path="/movies" element={
             <Movies />
           } />
 
-          <Route path="/savedmovies" element={
+          <Route path="/saved-movies" element={
             <SavedMovies />
           } />
 

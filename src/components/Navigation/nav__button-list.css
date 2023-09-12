@@ -1,6 +1,7 @@
 .nav__button-list {
    display: flex;
    padding: 0 0 0 62px;
+   align-items: center;
    gap: 16px;
    text-decoration: none;
    list-style: none;

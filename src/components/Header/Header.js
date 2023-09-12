@@ -2,11 +2,14 @@ import React from 'react';
 
 import Navigation from './../Navigation/Navigation.js';
 
-function Header() {
+function Header({ isOpen, onBurgerClick }) {
 
    return (
       <header className="header">
-         <Navigation />
+         <Navigation
+            isOpen={isOpen}
+            onBurgerClick={onBurgerClick}
+         />
       </header >
    )
 }

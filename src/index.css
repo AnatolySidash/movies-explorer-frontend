@@ -14,6 +14,10 @@
 
 @import url(./components/App/page.css);
 
+/* ------Main------ */
+
+@import url(./components/Main/Main.css);
+
 /* ------Header------ */
 
 @import url(./components/Header/header.css);
@@ -39,8 +43,8 @@
 
 /* ------NavTab------ */
 
-@import url(./components/NavTab/navtab.css);
 @import url(./components/NavTab/navtab__link.css);
+@import url(./components/NavTab/navtab__list.css);
 
 /* ------AboutProject------ */
 
@@ -164,7 +168,3 @@
 @import url(./components/Footer/footer__copyright.css);
 @import url(./components/Footer/footer__list.css);
 @import url(./components/Footer/footer__link.css);
-
-   {
-   outline: 1px solid red;
-}

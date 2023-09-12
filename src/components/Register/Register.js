@@ -5,11 +5,11 @@ import logo from '../../images/01_header/logo.svg';
 function Register() {
 
    return (
-      <section className="register">
+      <main className="register">
          <NavLink to="/" className="nav__logo">
             <img src={logo} alt="Логотип сайта в виде зелёного кольца" className="logo" />
          </NavLink>
-         <h2 className="register__title">Добро пожаловать!</h2>
+         <h1 className="register__title">Добро пожаловать!</h1>
          <form className="form">
             <label className="register__item">Имя
                <input className="form__input"
@@ -44,7 +44,7 @@ function Register() {
             <button type="submit" className="form__button">Зарегистрироваться</button>
             <Link to="/signin" className="register__link">Уже зарегистрированы? <span className="register__link-accent">Войти</span></Link>
          </form>
-      </section >
+      </main >
    )
 }
 

@@ -5,11 +5,11 @@ import logo from '../../images/01_header/logo.svg';
 function Login() {
 
    return (
-      <section className="login">
+      <main className="login">
          <NavLink to="/" className="nav__logo">
             <img src={logo} alt="Логотип сайта в виде зелёного кольца" className="logo" />
          </NavLink>
-         <h2 className="login__title">Рады видеть!</h2>
+         <h1 className="login__title">Рады видеть!</h1>
          <form className="form">
             <label className="login__item">E-mail
                <input
@@ -35,7 +35,7 @@ function Login() {
             <button type="submit" className="form__button">Войти</button>
             <Link to="/signup" className="login__link">Ещё не зарегистрированы? <span className="login__link-accent">Регистрация</span></Link>
          </form>
-      </section >
+      </main >
    )
 }
 

@@ -3,11 +3,19 @@ import React from 'react';
 function NavTab() {
 
    return (
-      <section className="navtab">
-         <a href="#aboutproject" className="navtab__link">О проекте</a>
-         <a href="#techs" className="navtab__link">Технологии</a>
-         <a href="#aboutme" className="navtab__link">Студент</a>
-      </section >
+      <nav className="navtab">
+         <ul className="navtab__list">
+            <li className="navtab__item">
+               <a href="#aboutproject" className="navtab__link">О проекте</a>
+            </li>
+            <li className="navtab__item">
+               <a href="#techs" className="navtab__link">Технологии</a>
+            </li>
+            <li className="navtab__item">
+               <a href="#aboutme" className="navtab__link">Студент</a>
+            </li>
+         </ul>
+      </nav >
    )
 }
 
