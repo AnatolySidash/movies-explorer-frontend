@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import logo from '../../images/01_header/logo.svg';
 
-function Navigation({ isOpen, onBurgerClick }) {
+function Navigation({ isOpen, onBurgerClick, isLoggedIn, isMobile }) {
 
-   const location = useLocation();
+   // const location = useLocation();
 
    return (
       <nav className={`navigation ${isOpen ? "open" : ""}`}>
@@ -17,21 +17,21 @@ function Navigation({ isOpen, onBurgerClick }) {
                <NavLink to="/" className="nav__link-main">Главная</NavLink>
             </li>
             <li>
-               <NavLink to="/movies" className="nav__link">Фильмы</NavLink>
+               {isLoggedIn && <NavLink to="/movies" className="nav__link">Фильмы</NavLink>}
             </li>
             <li>
-               <NavLink to="/saved-movies" className="nav__link">Сохранённые фильмы</NavLink>
+               {isLoggedIn && <NavLink to="/saved-movies" className="nav__link">Сохранённые фильмы</NavLink>}
             </li>
          </ul>
          <ul className="nav__button-list">
-            <li>
-               <NavLink to="/signup" className="nav__button">Регистрация</NavLink>
+            <li className="nav__item">
+               {!isLoggedIn && <NavLink to="/signup" className="nav__button">Регистрация</NavLink>}
             </li>
-            <li>
-               <NavLink to="/signin" className="nav__button nav__button_green">Войти</NavLink>
+            <li className="nav__item">
+               {!isLoggedIn && <NavLink to="/signin" className="nav__button nav__button_green">Войти</NavLink>}
             </li>
-            <li>
-               {location.pathname !== "/signup" && location.pathname !== "/signin" && <NavLink to="/Profile" className="nav__button nav__button_gray">Аккаунт</NavLink>}
+            <li className="nav__item">
+               {isLoggedIn && <NavLink to="/Profile" className="nav__button nav__button_gray">Аккаунт</NavLink>}
             </li>
          </ul>
       </nav>

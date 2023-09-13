@@ -4,11 +4,15 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Movies() {
+function Movies({ isOpen, onBurgerClick, isLoggedIn }) {
 
    return (
       <main className="movies">
-         <Header />
+         <Header
+            isOpen={isOpen}
+            onBurgerClick={onBurgerClick}
+            isLoggedIn={isLoggedIn}
+         />
          <SearchForm />
          <MoviesCardList />
          <Footer />

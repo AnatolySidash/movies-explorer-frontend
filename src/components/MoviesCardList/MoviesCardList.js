@@ -5,7 +5,7 @@ function MoviesCardList() {
 
    return (
       <>
-         <div className="moviescardlist">
+         <section className="moviescardlist">
             <MoviesCard />
             <MoviesCard />
             <MoviesCard />
@@ -14,7 +14,7 @@ function MoviesCardList() {
             <MoviesCard />
             <MoviesCard />
             <MoviesCard />
-         </div >
+         </section >
          <button type="button" className='moviescardlist__button'>Ещё</button>
       </>
    )

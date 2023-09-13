@@ -12,6 +12,8 @@ import PageNotFound from './../PageNotFound/PageNotFound.js';
 function App() {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const [isLoggedIn, setLoggedIn] = React.useState(true);
+  const [isMobileLayout, setMobileLayout] = React.useState(true);
 
   function handleMobileMenuOpen() {
     if (isMobileMenuOpen) {
@@ -31,15 +33,27 @@ function App() {
             <Main
               isOpen={isMobileMenuOpen}
               onBurgerClick={handleMobileMenuOpen}
+              isLoggedIn={isLoggedIn}
+              isMobile={isMobileLayout}
             />
           } />
 
           <Route path="/movies" element={
-            <Movies />
+            <Movies
+              isOpen={isMobileMenuOpen}
+              onBurgerClick={handleMobileMenuOpen}
+              isLoggedIn={isLoggedIn}
+              isMobile={isMobileLayout}
+            />
           } />
 
           <Route path="/saved-movies" element={
-            <SavedMovies />
+            <SavedMovies
+              isOpen={isMobileMenuOpen}
+              onBurgerClick={handleMobileMenuOpen}
+              isLoggedIn={isLoggedIn}
+              isMobile={isMobileLayout}
+            />
           } />
 
           <Route path="/profile" element={
