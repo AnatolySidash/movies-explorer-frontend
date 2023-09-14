@@ -6,7 +6,7 @@ function Login() {
 
    return (
       <main className="login">
-         <NavLink to="/" className="nav__logo">
+         <NavLink to="/" className="navigation__logo">
             <img src={logo} alt="Логотип сайта в виде зелёного кольца" className="logo" />
          </NavLink>
          <h1 className="login__title">Рады видеть!</h1>

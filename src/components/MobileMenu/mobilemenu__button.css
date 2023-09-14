@@ -1,0 +1,13 @@
+.mobilemenu__button {
+   text-decoration: none;
+   padding: 8px 21px;
+   background-color: #313131;
+   font-size: 14px;
+   border-radius: 20px;
+   color: #fff;
+   transition: opacity 0.3s ease-in-out;
+}
+
+.mobilemenu__button:hover {
+   opacity: 0.8;
+}

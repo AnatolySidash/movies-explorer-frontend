@@ -1,4 +1,4 @@
-.nav__button {
+.navigation__button {
    font-family: 'Inter', Arial, sans-serif;
    font-style: normal;
    font-weight: 500;
@@ -12,6 +12,13 @@
    transition: opacity 0.3s ease-in-out;
 }
 
-.nav__button:hover {
+.navigation__button:hover {
    opacity: 0.8;
+}
+
+@media screen and (max-width: 390px) {
+   .navigation__button {
+      font-size: 10px;
+      line-height: 1.6;
+   }
 }

@@ -1,0 +1,16 @@
+.mobilemenu__list {
+   list-style: none;
+   padding: 0;
+   margin: 0;
+   min-width: 340px;
+   text-align: center;
+   display: flex;
+   flex-direction: column;
+   gap: 29px;
+}
+
+@media screen and (max-width: 320px) {
+   .mobilemenu__list {
+      gap: 25px;
+   }
+}

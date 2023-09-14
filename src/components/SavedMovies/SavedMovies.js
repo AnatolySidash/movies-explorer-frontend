@@ -9,7 +9,6 @@ function SavedMovies({ isOpen, onBurgerClick, isLoggedIn }) {
    return (
       <main className="savedmovies">
          <Header
-            isOpen={isOpen}
             onBurgerClick={onBurgerClick}
             isLoggedIn={isLoggedIn}
          />

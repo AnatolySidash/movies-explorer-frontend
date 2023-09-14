@@ -2,11 +2,14 @@ import React from 'react';
 import Header from './../Header/Header.js';
 import { Link } from 'react-router-dom';
 
-function Profile() {
+function Profile({ onBurgerClick, isLoggedIn }) {
 
    return (
       <>
-         <Header />
+         <Header
+            onBurgerClick={onBurgerClick}
+            isLoggedIn={isLoggedIn}
+         />
          <main className="profile">
             <h1 className="profile__greeting">Привет, Анатолий</h1>
             <form className="profile__form">

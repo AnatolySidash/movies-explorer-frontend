@@ -7,20 +7,21 @@ import Profile from './../Profile/Profile.js';
 import Register from './../Register/Register.js';
 import Login from './../Login/Login.js';
 import PageNotFound from './../PageNotFound/PageNotFound.js';
+import MobileMenu from './../MobileMenu/MobileMenu.js';
+
 // import Preloader from './../Preloader/Preloader.js';
 
 function App() {
 
   const [isMobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [isLoggedIn, setLoggedIn] = React.useState(true);
-  const [isMobileLayout, setMobileLayout] = React.useState(true);
 
-  function handleMobileMenuOpen() {
-    if (isMobileMenuOpen) {
-      setMobileMenuOpen(false);
-    } else {
-      setMobileMenuOpen(true);
-    }
+  function openMobileMenu() {
+    setMobileMenuOpen(true);
+  }
+
+  function closeMobileMenu() {
+    setMobileMenuOpen(false)
   }
 
   return (
@@ -31,33 +32,30 @@ function App() {
 
           <Route path="/" element={
             <Main
-              isOpen={isMobileMenuOpen}
-              onBurgerClick={handleMobileMenuOpen}
+              onBurgerClick={openMobileMenu}
               isLoggedIn={isLoggedIn}
-              isMobile={isMobileLayout}
             />
           } />
 
           <Route path="/movies" element={
             <Movies
-              isOpen={isMobileMenuOpen}
-              onBurgerClick={handleMobileMenuOpen}
+              onBurgerClick={openMobileMenu}
               isLoggedIn={isLoggedIn}
-              isMobile={isMobileLayout}
             />
           } />
 
           <Route path="/saved-movies" element={
             <SavedMovies
-              isOpen={isMobileMenuOpen}
-              onBurgerClick={handleMobileMenuOpen}
+              onBurgerClick={openMobileMenu}
               isLoggedIn={isLoggedIn}
-              isMobile={isMobileLayout}
             />
           } />
 
           <Route path="/profile" element={
-            <Profile />
+            <Profile
+              onBurgerClick={openMobileMenu}
+              isLoggedIn={isLoggedIn}
+            />
           } />
 
           <Route path="/signup" element={
@@ -73,6 +71,11 @@ function App() {
           } />
 
         </Routes>
+
+        <MobileMenu
+          isOpen={isMobileMenuOpen}
+          onClose={closeMobileMenu}
+        />
 
         {/* <Preloader /> */}
 

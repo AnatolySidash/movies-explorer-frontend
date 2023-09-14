@@ -7,15 +7,13 @@ import Portfolio from '../../components/Portfolio/Portfolio.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Main({ isOpen, onBurgerClick, isLoggedIn, isMobile }) {
+function Main({ isOpen, onBurgerClick, isLoggedIn }) {
 
    return (
       <main className="main">
          <Header
-            isOpen={isOpen}
             onBurgerClick={onBurgerClick}
             isLoggedIn={isLoggedIn}
-            isMobile={isMobile}
          />
          <Promo />
          <AboutProject />

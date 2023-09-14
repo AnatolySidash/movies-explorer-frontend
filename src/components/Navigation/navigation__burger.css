@@ -1,4 +1,4 @@
-.nav__burger {
+.navigation__burger {
    position: relative;
    width: 44px;
    height: 44px;
@@ -11,33 +11,22 @@
    transition: opacity 0.3s ease-in-out;
 }
 
-.nav__burger:hover {
+.navigation__burger:hover {
    opacity: 0.8;
 }
 
 @media screen and (max-width: 768px) {
-   .nav__burger {
+   .navigation__burger {
       display: block;
-   }
-
-   .navigation.open .nav__burger {
-      background: url(../../images/01_header/close.svg) center no-repeat;
-      width: 22px;
-      height: 22px;
+      z-index: 1;
    }
 }
 
 @media screen and (max-width: 320px) {
-   .nav__burger {
+   .navigation__burger {
       width: 40px;
       height: 43px;
       background: url(../../images/01_header/burger_s.svg) center no-repeat;
-   }
-
-   .navigation.open .nav__burger {
-      background: url(../../images/01_header/close_s.svg) center no-repeat;
-      margin-bottom: 17px;
-      margin-right: 4px;
    }
 
 }
