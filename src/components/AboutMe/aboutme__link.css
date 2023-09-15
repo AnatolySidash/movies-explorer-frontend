@@ -1,0 +1,15 @@
+.aboutme__link {
+   padding: 0;
+   margin: 0;
+   font-family: 'Inter', Arial, sans-serif;
+   font-style: normal;
+   font-size: 14px;
+   font-weight: 500;
+   text-decoration: none;
+   color: #fff;
+   transition: opacity 0.3s ease-in-out;
+}
+
+.aboutme__link:hover {
+   opacity: 0.7;
+}

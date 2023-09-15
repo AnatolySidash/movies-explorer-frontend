@@ -1,0 +1,20 @@
+.portfolio__item {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 0 12px 0;
+   margin: 0 0 16px 0;
+   border-bottom: 1px solid #424242;
+}
+
+@media screen and (max-width: 768px) {
+   .portfolio__item {
+      padding-bottom: 13px;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .portfolio__item {
+      margin-bottom: 25px;
+   }
+}

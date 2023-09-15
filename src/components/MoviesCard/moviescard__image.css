@@ -1,0 +1,21 @@
+.moviescard__image {
+   width: 100%;
+   max-width: 360px;
+   max-height: 201px;
+   object-fit: cover;
+   border-radius: 6px;
+   margin: 0 0 12px 0;
+   cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+   .moviescard__image {
+      margin-bottom: 21px;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .moviescard__image {
+      margin-bottom: 12px;
+   }
+}

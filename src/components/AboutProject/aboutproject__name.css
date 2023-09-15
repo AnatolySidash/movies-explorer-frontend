@@ -1,0 +1,21 @@
+.aboutproject__name {
+   font-family: 'Inter', Arial, sans-serif;
+   font-weight: 500;
+   line-height: 17px;
+   color: #8B8B8B;
+}
+
+@media screen and (max-width: 768px) {
+   .aboutproject__name {
+      vertical-align: bottom;
+      padding-bottom: 5px;
+      color: #a0a0a0;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .aboutproject__name {
+      font-size: 11px;
+      padding-bottom: 10px;
+   }
+}

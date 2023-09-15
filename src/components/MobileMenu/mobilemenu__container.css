@@ -1,0 +1,24 @@
+.mobilemenu__container {
+   padding: 162px 0 90px;
+   width: 520px;
+   height: calc(100vh - 252px);
+   background-color: #202020;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   align-items: center;
+}
+
+@media screen and (max-width: 520px) {
+   .mobilemenu__container {
+      width: 100%;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .mobilemenu__container {
+      height: calc(100vh - 191px);
+      padding-top: 146px;
+      padding-bottom: 45px;
+   }
+}

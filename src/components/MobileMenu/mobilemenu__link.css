@@ -1,0 +1,45 @@
+.mobilemenu__link {
+   text-decoration: none;
+   padding: 0;
+   margin: 0;
+   font-family: 'Inter', Arial, sans-serif;
+   font-style: normal;
+   font-size: 18px;
+   font-weight: 500;
+   color: #fff;
+   transition: opacity 0.3s ease-in-out;
+   position: relative;
+}
+
+.mobilemenu__link:hover {
+   opacity: 0.7;
+}
+
+.active {
+   font-weight: 500;
+}
+
+@media screen and (max-width: 768px) {
+
+   .mobilemenu__link:after {
+      content: "";
+      left: 0;
+      top: 23px;
+      width: 100%;
+      height: 2px;
+      display: block;
+      background-color: #fff;
+      position: absolute;
+      opacity: 0;
+   }
+
+   .active.mobilemenu__link:after {
+      opacity: 1;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .mobilemenu__link:after {
+      top: 28px;
+   }
+}

@@ -1,0 +1,21 @@
+.techs__info {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 90px 0 100px 0;
+}
+
+@media screen and (max-width: 768px) {
+   .techs__info {
+      padding-top: 80px;
+      padding-bottom: 83px;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .techs__info {
+      padding-top: 61px;
+      padding-bottom: 49px;
+   }
+}

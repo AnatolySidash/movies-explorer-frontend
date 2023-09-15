@@ -1,0 +1,21 @@
+.aboutproject__time_frontend {
+   width: 80%;
+   font-family: 'Inter', Arial, sans-serif;
+   font-style: normal;
+   font-weight: 400;
+   color: #fff;
+   background-color: #303030;
+}
+
+@media screen and (max-width: 550px) {
+   .aboutproject__time_frontend {
+      width: 70%;
+   }
+}
+
+@media screen and (max-width: 320px) {
+   .aboutproject__time_frontend {
+      width: 65%;
+      font-size: 11px;
+   }
+}

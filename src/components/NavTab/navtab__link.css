@@ -1,0 +1,30 @@
+.navtab__link {
+   font-family: 'Inter', Arial, sans-serif;
+   font-style: normal;
+   font-weight: 500;
+   font-size: 12px;
+   line-height: 16px;
+   color: #fff;
+   text-decoration: none;
+   transition: opacity 0.3s ease-in-out;
+   width: 96px;
+   height: 36px;
+   background-color: #303030;
+   border-radius: 10px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.navtab__link:hover {
+   opacity: 0.7;
+}
+
+@media screen and (max-width: 370px) {
+   .navtab__link {
+      width: 82px;
+      height: 26px;
+      font-size: 10px;
+      line-height: 1.6;
+   }
+}

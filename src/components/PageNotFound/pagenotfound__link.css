@@ -1,0 +1,23 @@
+.pagenotfound__link {
+   padding: 186px 0 60px;
+   margin: 0;
+   text-decoration: none;
+   font-family: 'Inter', Arial, sans-serif;
+   font-style: normal;
+   font-size: 14px;
+   font-weight: 400;
+   color: #4285F4;
+   transition: opacity 0.3s ease-in-out;
+}
+
+.pagenotfound__link:hover {
+   opacity: 0.8;
+}
+
+@media screen and (max-width: 350px) {
+   .pagenotfound__link {
+      padding-top: 285px;
+      padding-bottom: 30px;
+      font-size: 12px;
+   }
+}
