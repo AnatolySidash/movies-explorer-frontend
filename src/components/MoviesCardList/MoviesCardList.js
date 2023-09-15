@@ -6,11 +6,23 @@ function MoviesCardList() {
    return (
       <>
          <section className="moviescardlist">
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
-            <MoviesCard />
+            <ul className="moviescardlist__list">
+               <li className="moviescardlist__item">
+                  <MoviesCard />
+               </li>
+               <li className="moviescardlist__item">
+                  <MoviesCard />
+               </li>
+               <li className="moviescardlist__item">
+                  <MoviesCard />
+               </li>
+               <li className="moviescardlist__item">
+                  <MoviesCard />
+               </li>
+               <li className="moviescardlist__item">
+                  <MoviesCard />
+               </li>
+            </ul>
          </section >
          <button type="button" className='moviescardlist__button'>Ещё</button>
       </>

@@ -7,15 +7,17 @@ import Footer from './../Footer/Footer.js';
 function Movies({ onBurgerClick, isLoggedIn }) {
 
    return (
-      <main className="movies">
+      <>
          <Header
             onBurgerClick={onBurgerClick}
             isLoggedIn={isLoggedIn}
          />
-         <SearchForm />
-         <MoviesCardList />
+         <main className="movies">
+            <SearchForm />
+            <MoviesCardList />
+         </main >
          <Footer />
-      </main >
+      </>
    )
 }
 
