@@ -118,6 +118,8 @@
 /* ------MoviesCardList------ */
 
 @import url(./components/MoviesCardList/moviescardlist.css);
+@import url(./components/MoviesCardList/moviescardlist__list.css);
+@import url(./components/MoviesCardList/moviescardlist__item.css);
 @import url(./components/MoviesCardList/moviescardlist__button.css);
 
 /* ------MoviesCard------ */
