@@ -4,7 +4,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Movies({ onBurgerClick, isLoggedIn }) {
+function Movies({ onBurgerClick, isLoggedIn, movies }) {
 
    return (
       <>
@@ -14,7 +14,9 @@ function Movies({ onBurgerClick, isLoggedIn }) {
          />
          <main className="movies">
             <SearchForm />
-            <MoviesCardList />
+            <MoviesCardList
+               movies={movies}
+            />
          </main >
          <Footer />
       </>

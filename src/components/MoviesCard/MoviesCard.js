@@ -1,16 +1,17 @@
 import React from 'react';
-import poster from '../../images/07_movies/pic__01.png';
 
-function MoviesCard() {
+function MoviesCard({ card }) {
+
+   const imageUrl = 'https://api.nomoreparties.co';
 
    return (
       <article className="moviescard">
-         <img src={poster} alt="постер фильма 33 слова о дизайне: девушка-фотограф смотрит на детей, которые рассматривают её автомобиль" className="moviescard__image"></img>
+         <img src={`card.image.${imageUrl}url}`} alt={card.image.name} className="moviescard__image"></img>
          <button type="button" className="moviescard__button moviescard__button-add"></button>
          <button type="button" className="moviescard__button moviescard__button-delete"></button>
          <div className="moviescard__info">
-            <h2 className="moviescard__name">33 слова о дизайне</h2>
-            <p className="moviescard__duration">1ч 17м</p>
+            <h2 className="moviescard__name">{card.nameRU}</h2>
+            <p className="moviescard__duration">{card.duration}</p>
          </div>
       </article >
    )
