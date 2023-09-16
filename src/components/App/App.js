@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Main from './../Main/Main.js';
@@ -31,15 +32,27 @@ function App() {
     setMobileMenuOpen(false)
   }
 
-  React.useEffect(() => {
+  function filterMovies(movies, search) {
+    const filteredMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(search.toLowerCase()) || movie.nameEN.toLowerCase().includes(search.toLowerCase()));
+    return filteredMovies;
+  }
+
+  function handleSearchMoviesSubmit({ search }) {
     if (isLoggedIn) {
       moviesApi.getMovies().then((movies) => {
-        setMovies(movies);
+        setMovies(filterMovies(movies, search));
       }).catch((err) => {
         console.error(`Ошибка загрузки фильмов: ${err}`);
       });
     }
-  }, [isLoggedIn]);
+  }
+
+  function handleCheckboxFilter(isCheckboxChecked) {
+    if (isCheckboxChecked) {
+      const filteredMovies = movies.filter((movie) => movie.duration <= 40);
+      return filteredMovies;
+    }
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -61,6 +74,8 @@ function App() {
                   onBurgerClick={openMobileMenu}
                   isLoggedIn={isLoggedIn}
                   movies={movies}
+                  onSearchMovie={handleSearchMoviesSubmit}
+                  onCheckboxChecked={handleCheckboxFilter}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />

@@ -4,7 +4,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Movies({ onBurgerClick, isLoggedIn, movies }) {
+function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked }) {
 
    return (
       <>
@@ -13,7 +13,10 @@ function Movies({ onBurgerClick, isLoggedIn, movies }) {
             isLoggedIn={isLoggedIn}
          />
          <main className="movies">
-            <SearchForm />
+            <SearchForm
+               onSearchMovie={onSearchMovie}
+               onCheckboxChecked={onCheckboxChecked}
+            />
             <MoviesCardList
                movies={movies}
             />

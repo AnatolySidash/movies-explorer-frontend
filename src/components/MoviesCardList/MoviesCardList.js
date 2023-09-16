@@ -9,6 +9,7 @@ function MoviesCardList({ movies }) {
             <ul className="moviescardlist__list">
                {movies.map((card) => (
                   <MoviesCard
+                     key={card.id}
                      card={card}
                   />
                ))}
