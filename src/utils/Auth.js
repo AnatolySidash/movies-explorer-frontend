@@ -7,14 +7,14 @@ function getResponseData(res) {
    return res.json();
 }
 
-export const register = (email, password) => {
+export const register = (name, email, password) => {
    return fetch(`${baseUrl}/signup`, {
       method: "POST",
       headers: {
          "Content-Type": "application/json"
       },
       credentials: "include",
-      body: JSON.stringify({ email, password })
+      body: JSON.stringify({ name, email, password })
    })
       .then(getResponseData);
 };
@@ -27,6 +27,28 @@ export const login = (email, password) => {
       },
       credentials: "include",
       body: JSON.stringify({ email, password })
+   })
+      .then(getResponseData);
+};
+
+export const clearCookie = () => {
+   return fetch(`${baseUrl}/signout`, {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json"
+      },
+      credentials: "include",
+   })
+      .then(getResponseData);
+}
+
+export const checkToken = () => {
+   return fetch(`${baseUrl}/users/me`, {
+      method: "GET",
+      headers: {
+         "Content-Type": "application/json",
+      },
+      credentials: "include",
    })
       .then(getResponseData);
 };

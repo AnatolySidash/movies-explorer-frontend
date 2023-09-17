@@ -1,8 +1,40 @@
 import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../../images/01_header/logo.svg';
+import * as auth from '../../utils/Auth.js';
 
-function Register() {
+function Register({ setSuccessSignUp, onTooltipOpen }) {
+
+   const navigate = useNavigate();
+
+   const [formValue, setFormValue] = React.useState({
+      name: '',
+      email: '',
+      password: ''
+   });
+
+   const handleChange = (event) => {
+      const { name, value } = event.target;
+      setFormValue({
+         ...formValue,
+         [name]: value
+      });
+   };
+
+   const handleSubmit = (event) => {
+      event.preventDefault();
+      const { name, email, password } = formValue;
+      auth.register(name, email, password).then((data) => {
+         navigate('/signin', { replace: true });
+         setSuccessSignUp(true);
+         onTooltipOpen();
+      })
+         .catch((err) => {
+            setSuccessSignUp(false);
+            onTooltipOpen();
+            console.error(`Ошибка регистрации нового пользователя: ${err}`)
+         });
+   };
 
    return (
       <main className="register">
@@ -10,11 +42,13 @@ function Register() {
             <img src={logo} alt="Логотип сайта в виде зелёного кольца" className="logo" />
          </NavLink>
          <h1 className="register__title">Добро пожаловать!</h1>
-         <form className="form">
+         <form className="form" onSubmit={handleSubmit}>
             <label className="register__item">Имя
                <input className="form__input"
                   type="text"
                   placeholder="Имя"
+                  value={formValue.name}
+                  onChange={handleChange}
                   minLength={2}
                   maxLength={40}
                   required>
@@ -25,6 +59,8 @@ function Register() {
                   className="form__input"
                   type="email"
                   placeholder="E-mail"
+                  value={formValue.email}
+                  onChange={handleChange}
                   minLength={2}
                   maxLength={40}
                   required>
@@ -35,6 +71,8 @@ function Register() {
                   className="form__input"
                   type="password"
                   placeholder="Пароль"
+                  value={formValue.password}
+                  onChange={handleChange}
                   minLength={6}
                   maxLength={30}
                   required>

@@ -1,10 +1,12 @@
 import React from 'react';
 import MoviesCard from '../../components/MoviesCard/MoviesCard.js'
+import Preloader from './../Preloader/Preloader.js';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, isLoading }) {
 
    return (
       <>
+         {isLoading && < Preloader />}
          <section className="moviescardlist">
             <ul className="moviescardlist__list">
                {movies.map((card) => (

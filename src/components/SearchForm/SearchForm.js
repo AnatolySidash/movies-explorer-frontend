@@ -2,11 +2,11 @@ import React from 'react';
 
 function SearchForm({ onSearchMovie, onCheckboxChecked }) {
 
-   const [search, setSearch] = React.useState('');
+   const [inputValue, setInputValue] = React.useState('');
    const [isCheckboxChecked, setCheckboxChecked] = React.useState(false);
 
    function handleSearchChange(event) {
-      setSearch(event.target.value);
+      setInputValue(event.target.value);
    }
 
    function handleCheckboxChange(event) {
@@ -21,7 +21,7 @@ function SearchForm({ onSearchMovie, onCheckboxChecked }) {
       })
 
       onSearchMovie({
-         search: search,
+         inputValue: inputValue,
       });
 
    }
@@ -33,7 +33,7 @@ function SearchForm({ onSearchMovie, onCheckboxChecked }) {
                <input
                   className="searchform__input"
                   id="name__input"
-                  value={search}
+                  value={inputValue}
                   type="search"
                   placeholder="Фильм"
                   onChange={handleSearchChange}

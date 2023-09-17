@@ -171,6 +171,15 @@
 @import url(./components/PageNotFound/pagenotfound__text.css);
 @import url(./components/PageNotFound/pagenotfound__link.css);
 
+/* ------InfoTooltip------ */
+
+@import url(./components/InfoTooltip/infotooltip.css);
+@import url(./components/InfoTooltip/infotooltip__container.css);
+@import url(./components/InfoTooltip/infotooltip__logo.css);
+@import url(./components/InfoTooltip/infotooltip__title.css);
+@import url(./components/InfoTooltip/infotooltip_opened.css);
+@import url(./components/InfoTooltip/infotooltip__close.css);
+
 /* ------Footer------ */
 
 @import url(./components/Footer/footer.css);
