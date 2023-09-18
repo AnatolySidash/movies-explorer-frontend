@@ -24,6 +24,8 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [isNoSearchResult, setNoSearchResult] = React.useState(false);
+  const [isError, setError] = React.useState(false);
   const [isSuccessSignUp, setSuccessSignUp] = React.useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
 
@@ -53,6 +55,17 @@ function App() {
     setMobileMenuOpen(false);
     setInfoTooltipOpen(false);
   }
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      mainApi.getUserInfo().then((data) => {
+        setCurrentUser(data.data);
+      })
+        .catch((err) => {
+          console.error(`Ошибка получения данных профиля: ${err}`);
+        });
+    }
+  }, [isLoggedIn]);
 
   function checkToken() {
     auth.checkToken()
@@ -113,8 +126,8 @@ function App() {
     }
   }
 
-  function handleUpdateUser({ name, about }) {
-    mainApi.editProfile({ name: name, job: about })
+  function handleUpdateUser({ name, email }) {
+    mainApi.editProfile({ name: name, email: email })
       .then((data) => {
         setCurrentUser(data.data);
         closeAllPopups();
@@ -147,6 +160,8 @@ function App() {
                   onSearchMovie={handleSearchMoviesSubmit}
                   onCheckboxChecked={handleCheckboxFilter}
                   isLoading={isLoading}
+                  isNoSearchResult={isNoSearchResult}
+                  isError={isError}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />

@@ -22,7 +22,7 @@ function Profile({ onBurgerClick, isLoggedIn, onUpdateUser, onLogout }) {
       if (currentUser.name) {
          setName(currentUser.name);
       }
-      if (currentUser.about) {
+      if (currentUser.email) {
          setEmail(currentUser.email);
       }
    }, [currentUser]);
@@ -44,7 +44,7 @@ function Profile({ onBurgerClick, isLoggedIn, onUpdateUser, onLogout }) {
             isLoggedIn={isLoggedIn}
          />
          <main className="profile">
-            <h1 className="profile__greeting">Привет, Анатолий</h1>
+            <h1 className="profile__greeting">Привет, {currentUser.name}</h1>
             <form className="profile__form" onSubmit={handleSubmit}>
                <label className="profile__item">Имя
                   <input

@@ -25,7 +25,7 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
       event.preventDefault();
       const { name, email, password } = formValue;
       auth.register(name, email, password).then((data) => {
-         navigate('/signin', { replace: true });
+         navigate('/movies', { replace: true });
          setSuccessSignUp(true);
          onTooltipOpen();
       })
@@ -44,8 +44,10 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
          <h1 className="register__title">Добро пожаловать!</h1>
          <form className="form" onSubmit={handleSubmit}>
             <label className="register__item">Имя
-               <input className="form__input"
+               <input
+                  className="form__input"
                   type="text"
+                  name="name"
                   placeholder="Имя"
                   value={formValue.name}
                   onChange={handleChange}
@@ -58,6 +60,7 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                <input
                   className="form__input"
                   type="email"
+                  name="email"
                   placeholder="E-mail"
                   value={formValue.email}
                   onChange={handleChange}
@@ -70,6 +73,7 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                <input
                   className="form__input"
                   type="password"
+                  name="password"
                   placeholder="Пароль"
                   value={formValue.password}
                   onChange={handleChange}

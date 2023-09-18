@@ -121,6 +121,8 @@
 @import url(./components/MoviesCardList/moviescardlist__list.css);
 @import url(./components/MoviesCardList/moviescardlist__item.css);
 @import url(./components/MoviesCardList/moviescardlist__button.css);
+@import url(./components/MoviesCardList/moviescardlist__note.css);
+@import url(./components/MoviesCardList/moviescardlist__warning.css);
 
 /* ------MoviesCard------ */
 

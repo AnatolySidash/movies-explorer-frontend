@@ -1,4 +1,6 @@
-const baseUrl = "https://api.movies.sidash.nomoredomainsicu.ru";
+// const baseUrl = "https://api.movies.sidash.nomoredomainsicu.ru";
+
+const baseUrl = "http://localhost:4000";
 
 function getResponseData(res) {
    if (!res.ok) {
@@ -33,7 +35,7 @@ export const login = (email, password) => {
 
 export const clearCookie = () => {
    return fetch(`${baseUrl}/signout`, {
-      method: "GET",
+      method: "POST",
       headers: {
          "Content-Type": "application/json"
       },

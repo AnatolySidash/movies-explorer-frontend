@@ -1,8 +1,8 @@
 import React from 'react';
-import MoviesCard from '../../components/MoviesCard/MoviesCard.js'
-import Preloader from './../Preloader/Preloader.js';
+import MoviesCard from '../MoviesCard/MoviesCard.js'
+import Preloader from '../Preloader/Preloader.js';
 
-function MoviesCardList({ movies, isLoading, isNoSearchResult, isError }) {
+function SavedMoviesCardList({ movies, isLoading, isNoSearchResult, isError }) {
 
    return (
       <>
@@ -19,9 +19,8 @@ function MoviesCardList({ movies, isLoading, isNoSearchResult, isError }) {
                ))}
             </ul>
          </section >
-         <button type="button" className='moviescardlist__button'>Ещё</button>
       </>
    )
 }
 
-export default MoviesCardList;
+export default SavedMoviesCardList;

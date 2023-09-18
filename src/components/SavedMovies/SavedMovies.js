@@ -1,10 +1,10 @@
 import React from 'react';
 import SearchForm from '../../components/SearchForm/SearchForm.js'
-import MoviesCardList from '../../components/MoviesCardList/MoviesCardList.js'
+import SavedMoviesCardList from '../../components/SavedMoviesCardList/SavedMoviesCardList.js'
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function SavedMovies({ onBurgerClick, isLoggedIn }) {
+function SavedMovies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked, isLoading, isNoSearchResult, isError }) {
 
    return (
       <>
@@ -13,8 +13,16 @@ function SavedMovies({ onBurgerClick, isLoggedIn }) {
             isLoggedIn={isLoggedIn}
          />
          <main className="savedmovies">
-            <SearchForm />
-            <MoviesCardList />
+            <SearchForm
+               onSearchMovie={onSearchMovie}
+               onCheckboxChecked={onCheckboxChecked}
+            />
+            <SavedMoviesCardList
+               isLoading={isLoading}
+               isNoSearchResult={isNoSearchResult}
+               isError={isError}
+               movies={movies}
+            />
          </main >
          <Footer />
       </>

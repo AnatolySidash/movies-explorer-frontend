@@ -24,7 +24,7 @@ function Login({ onLogin }) {
       event.preventDefault();
       auth.login(formValue.email, formValue.password).then((data) => {
          onLogin();
-         navigate('/');
+         navigate('/movies');
       })
          .catch((err) => console.error(`Ошибка авторизации пользователя: ${err}`));
    };
@@ -40,6 +40,7 @@ function Login({ onLogin }) {
                <input
                   className="form__input"
                   type="email"
+                  name="email"
                   placeholder="E-mail"
                   minLength={2}
                   maxLength={40}
@@ -52,6 +53,7 @@ function Login({ onLogin }) {
                <input
                   className="form__input"
                   type="password"
+                  name="password"
                   placeholder="Пароль"
                   minLength={6}
                   maxLength={30}

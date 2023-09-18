@@ -12,7 +12,7 @@ class MainApi {
    }
 
    getUserInfo() {
-      return fetch(`${this._baseUrl}/profile`, {
+      return fetch(`${this._baseUrl}/users/me`, {
          headers: this._headers,
          credentials: "include",
       })
@@ -44,7 +44,7 @@ class MainApi {
    }
 
    editProfile({ name, email }) {
-      return fetch(`${this._baseUrl}/profile`, {
+      return fetch(`${this._baseUrl}/users/me`, {
          method: "PATCH",
          headers: this._headers,
          body: JSON.stringify({
@@ -58,10 +58,12 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-   baseUrl: 'https://api.movies.sidash.nomoredomainsicu.ru',
+   baseUrl: 'http://localhost:4000',
    headers: {
       'Content-Type': 'application/json'
    }
 });
 
 export default mainApi;
+
+// baseUrl: 'https://api.movies.sidash.nomoredomainsicu.ru',
