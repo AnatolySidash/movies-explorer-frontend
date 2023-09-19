@@ -2,6 +2,7 @@ class MainApi {
    constructor(options) {
       this._baseUrl = options.baseUrl;
       this._headers = options.headers;
+      this._imageUrl = 'https://api.nomoreparties.co';
    }
 
    _checkResponse(res) {
@@ -19,14 +20,32 @@ class MainApi {
          .then(this._checkResponse);
    }
 
-   addMovie({ id }) {
+   addMovie(movie) {
       return fetch(`${this._baseUrl}/movies`, {
          method: "POST",
          headers: this._headers,
          credentials: "include",
          body: JSON.stringify({
-            "id": id,
+            "country": movie.country,
+            "director": movie.director,
+            "duration": movie.duration,
+            "year": movie.year,
+            "description": movie.description,
+            "image": this._imageUrl + movie.image.url,
+            "trailerLink": movie.trailerLink,
+            "thumbnail": this._imageUrl + movie.image.formats.thumbnail.url,
+            "movieId": movie.id,
+            "nameRU": movie.nameRU,
+            "nameEN": movie.nameEN,
          })
+      })
+         .then(this._checkResponse);
+   }
+
+   getSavedMovies() {
+      return fetch(`${this._baseUrl}/movies`, {
+         headers: this._headers,
+         credentials: "include",
       })
          .then(this._checkResponse);
    }

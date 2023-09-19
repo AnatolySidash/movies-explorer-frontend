@@ -4,7 +4,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked, isLoading, isNoSearchResult, isError }) {
+function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked, isLoading, isNoSearchResult, isError, onSaveButtonClick, savedMovies }) {
 
    return (
       <>
@@ -22,6 +22,8 @@ function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxCh
                isNoSearchResult={isNoSearchResult}
                isError={isError}
                movies={movies}
+               onSaveButtonClick={onSaveButtonClick}
+               savedMovies={savedMovies}
             />
          </main >
          <Footer />

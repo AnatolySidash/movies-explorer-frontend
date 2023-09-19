@@ -23,6 +23,7 @@ function App() {
   const [isLoggedIn, setLoggedIn] = React.useState(true);
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isNoSearchResult, setNoSearchResult] = React.useState(false);
   const [isError, setError] = React.useState(false);
@@ -56,6 +57,24 @@ function App() {
     setInfoTooltipOpen(false);
   }
 
+  function handleCardLike(movie) {
+    console.log(movie);
+    const isLiked = savedMovies.some(i => i.movieId === movie.id);
+
+    if (!isLiked) {
+      mainApi.addMovie(movie)
+        .then((movie) => setSavedMovies([movie, ...savedMovies]))
+        .catch((err) => console.error(`Ошибка добавления лайка фильму: ${err}`));
+    } else {
+      const movieId = savedMovies.find(i => i.movieId === movie.id)
+      mainApi.deleteMovie(movieId)
+        .then(() => setSavedMovies((state) =>
+          state.map(i => i.movieId !== movie.id))
+        )
+        .catch((err) => console.error(`Ошибка удаления лайка фильму: ${err}`));
+    }
+  }
+
   React.useEffect(() => {
     if (isLoggedIn) {
       mainApi.getUserInfo().then((data) => {
@@ -66,6 +85,17 @@ function App() {
         });
     }
   }, [isLoggedIn]);
+
+  React.useEffect(() => {
+    if (isLoggedIn) {
+      mainApi.getSavedMovies().then((movies) => {
+        setSavedMovies(movies);
+      })
+        .catch((err) => {
+          console.error(`Ошибка получения сохранённых фильмов: ${err}`);
+        });
+    }
+  })
 
   function checkToken() {
     auth.checkToken()
@@ -162,6 +192,8 @@ function App() {
                   isLoading={isLoading}
                   isNoSearchResult={isNoSearchResult}
                   isError={isError}
+                  onSaveButtonClick={handleCardLike}
+                  savedMovies={savedMovies}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />
@@ -169,6 +201,7 @@ function App() {
             <Route path="/saved-movies" element={
               <ProtectedRoute element={
                 <SavedMovies
+                  movies={movies}
                   onBurgerClick={openMobileMenu}
                   isLoggedIn={isLoggedIn}
                 />}
