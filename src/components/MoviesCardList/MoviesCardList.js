@@ -21,7 +21,7 @@ function MoviesCardList({ movies, isLoading, isNoSearchResult, isError, onSaveBu
                ))}
             </ul>
          </section >
-         <button type="button" className='moviescardlist__button'>Ещё</button>
+         {!isNoSearchResult && <button type="button" className='moviescardlist__button'>Ещё</button>}
       </>
    )
 }

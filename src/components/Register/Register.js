@@ -21,6 +21,33 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
       });
    };
 
+   // Register Validation
+
+   // const useInput = (initialValue) => {
+   //    const [value, setValue] = React.useState(initialValue);
+   //    const [isDirty, setDirty] = React.useState(false);
+
+
+   //    const onChange = (event) => {
+   //       setValue(event.target.value);
+   //    }
+
+   //    const onBlur = () => {
+   //       setDirty(true);
+   //    }
+
+   //    return {
+   //       value,
+   //       onChange,
+   //       onBlur
+   //    }
+   // }
+
+   // const name = useInput('');
+   // const email = useInput('');
+   // const password = useInput('');
+
+
    const handleSubmit = (event) => {
       event.preventDefault();
       const { name, email, password } = formValue;
@@ -49,8 +76,9 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   type="text"
                   name="name"
                   placeholder="Имя"
-                  value={formValue.name}
-                  onChange={handleChange}
+                  value={name.value}
+                  onChange={(e) => name.onChange(e)}
+                  onBlur={(e) => name.onBlur(e)}
                   minLength={2}
                   maxLength={40}
                   required>
@@ -62,8 +90,9 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   type="email"
                   name="email"
                   placeholder="E-mail"
-                  value={formValue.email}
-                  onChange={handleChange}
+                  value={email.value}
+                  onChange={(e) => email.onChange(e)}
+                  onBlur={(e) => email.onBlur(e)}
                   minLength={2}
                   maxLength={40}
                   required>
@@ -75,8 +104,9 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   type="password"
                   name="password"
                   placeholder="Пароль"
-                  value={formValue.password}
-                  onChange={handleChange}
+                  value={password.value}
+                  onChange={(e) => password.onChange(e)}
+                  onBlur={(e) => password.onBlur(e)}
                   minLength={6}
                   maxLength={30}
                   required>

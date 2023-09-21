@@ -25,7 +25,7 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
-  const [isNoSearchResult, setNoSearchResult] = React.useState(false);
+  const [isNoSearchResult, setNoSearchResult] = React.useState(true);
   const [isError, setError] = React.useState(false);
   const [isSuccessSignUp, setSuccessSignUp] = React.useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
@@ -58,21 +58,19 @@ function App() {
   }
 
   function handleCardLike(movie) {
-    console.log(movie);
     const isLiked = savedMovies.some(i => i.movieId === movie.id);
 
     if (!isLiked) {
       mainApi.addMovie(movie)
         .then((movie) => setSavedMovies([movie, ...savedMovies]))
         .catch((err) => console.error(`Ошибка добавления лайка фильму: ${err}`));
-    } else {
-      const movieId = savedMovies.find(i => i.movieId === movie.id)
-      mainApi.deleteMovie(movieId)
-        .then(() => setSavedMovies((state) =>
-          state.map(i => i.movieId !== movie.id))
-        )
-        .catch((err) => console.error(`Ошибка удаления лайка фильму: ${err}`));
     }
+  }
+
+  function handleCardDelete(movie) {
+    mainApi.deleteMovie(movie._id)
+      .then((movie) => setSavedMovies(res => res.filter(i => i._id !== movie._id)))
+      .catch((err) => console.error(`Ошибка удаления фильма: ${err}`));
   }
 
   React.useEffect(() => {
@@ -95,7 +93,7 @@ function App() {
           console.error(`Ошибка получения сохранённых фильмов: ${err}`);
         });
     }
-  })
+  }, [isLoggedIn]);
 
   function checkToken() {
     auth.checkToken()
@@ -201,9 +199,10 @@ function App() {
             <Route path="/saved-movies" element={
               <ProtectedRoute element={
                 <SavedMovies
-                  movies={movies}
                   onBurgerClick={openMobileMenu}
+                  onSaveButtonClick={handleCardDelete}
                   isLoggedIn={isLoggedIn}
+                  savedMovies={savedMovies}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />

@@ -6,9 +6,14 @@
    border-radius: 30px;
    cursor: pointer;
    transition: all 0.3s ease-in-out;
+   opacity: 0;
 }
 
 .moviescard__button-add:hover {
    opacity: 0.8;
    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.moviescard__link:hover+.moviescard__button-add {
+   opacity: 1;
 }

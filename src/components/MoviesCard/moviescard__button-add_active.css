@@ -1,8 +1,9 @@
 .moviescard__button-add_active {
-   background: url(../../images/08_moviesCard/save_button_active.svg) center no-repeat;
    width: 21px;
    height: 21px;
-   border: none;
+   border: 0;
+   border-radius: 50px;
+   background: url(../../images/08_moviesCard/save_button_active.svg);
    cursor: pointer;
    transition: all 0.3s ease-in-out;
 }
