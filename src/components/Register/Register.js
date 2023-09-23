@@ -1,5 +1,7 @@
+/* eslint-disable no-useless-escape */
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useInput } from '../../utils/Validation.js';
 import logo from '../../images/01_header/logo.svg';
 import * as auth from '../../utils/Auth.js';
 
@@ -7,51 +9,13 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
 
    const navigate = useNavigate();
 
-   const [formValue, setFormValue] = React.useState({
-      name: '',
-      email: '',
-      password: ''
-   });
-
-   const handleChange = (event) => {
-      const { name, value } = event.target;
-      setFormValue({
-         ...formValue,
-         [name]: value
-      });
-   };
-
-   // Register Validation
-
-   // const useInput = (initialValue) => {
-   //    const [value, setValue] = React.useState(initialValue);
-   //    const [isDirty, setDirty] = React.useState(false);
-
-
-   //    const onChange = (event) => {
-   //       setValue(event.target.value);
-   //    }
-
-   //    const onBlur = () => {
-   //       setDirty(true);
-   //    }
-
-   //    return {
-   //       value,
-   //       onChange,
-   //       onBlur
-   //    }
-   // }
-
-   // const name = useInput('');
-   // const email = useInput('');
-   // const password = useInput('');
-
+   const name = useInput('', { isEmpty: true, minLength: 2, isUserName: true });
+   const email = useInput('', { isEmpty: true, minLength: 2, isEmail: true });
+   const password = useInput('', { isEmpty: true, minLength: 6 });
 
    const handleSubmit = (event) => {
       event.preventDefault();
-      const { name, email, password } = formValue;
-      auth.register(name, email, password).then((data) => {
+      auth.register(name.value, email.value, password.value).then((data) => {
          navigate('/movies', { replace: true });
          setSuccessSignUp(true);
          onTooltipOpen();
@@ -83,6 +47,9 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   maxLength={40}
                   required>
                </input>
+               {(name.isDirty && name.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
+               {(name.isDirty && name.minLengthError) && <span className="form__input-error">Не менее 2-х символов...</span>}
+               {(name.isDirty && name.userNameError) && <span className="form__input-error">Неверный формат имени пользователя</span>}
             </label>
             <label className="register__item">E-mail
                <input
@@ -97,6 +64,9 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   maxLength={40}
                   required>
                </input>
+               {(email.isDirty && email.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
+               {(email.isDirty && email.minLengthError) && <span className="form__input-error">Не менее 2-х символов...</span>}
+               {(email.isDirty && email.emailError) && <span className="form__input-error">Неверный формат электронной почты</span>}
             </label>
             <label className="register__item">Пароль
                <input
@@ -111,9 +81,10 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   maxLength={30}
                   required>
                </input>
-               <span className="form__input-error">Что-то пошло не так...</span>
+               {(password.isDirty && password.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
+               {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 6-ти символов...</span>}
             </label>
-            <button type="submit" className="form__button">Зарегистрироваться</button>
+            <button disabled={!name.inputValid || !email.inputValid || !password.inputValid} type="submit" className="form__button">Зарегистрироваться</button>
             <Link to="/signin" className="register__link">Уже зарегистрированы? <span className="register__link-accent">Войти</span></Link>
          </form>
       </main >

@@ -1,32 +1,28 @@
 import React from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { useInput } from '../../utils/Validation.js';
 import logo from '../../images/01_header/logo.svg';
 import * as auth from '../../utils/Auth.js';
 
 function Login({ onLogin }) {
 
    const navigate = useNavigate();
+   const [isSuccessSignIn, setSuccessSignIn] = React.useState(true);
 
-   const [formValue, setFormValue] = React.useState({
-      email: '',
-      password: ''
-   });
-
-   const handleChange = (event) => {
-      const { name, value } = event.target;
-      setFormValue({
-         ...formValue,
-         [name]: value
-      });
-   };
+   const email = useInput('', { isEmpty: true, minLength: 2, isEmail: true });
+   const password = useInput('', { isEmpty: true, minLength: 6 });
 
    const handleSubmit = (event) => {
       event.preventDefault();
-      auth.login(formValue.email, formValue.password).then((data) => {
+      auth.login(email.value, password.value).then((data) => {
          onLogin();
+         setSuccessSignIn(true);
          navigate('/movies');
       })
-         .catch((err) => console.error(`Ошибка авторизации пользователя: ${err}`));
+         .catch((err) => {
+            setSuccessSignIn(false);
+            console.error(`Ошибка авторизации пользователя: ${err}`)
+         });
    };
 
    return (
@@ -44,10 +40,14 @@ function Login({ onLogin }) {
                   placeholder="E-mail"
                   minLength={2}
                   maxLength={40}
-                  value={formValue.email}
-                  onChange={handleChange}
+                  value={email.value}
+                  onChange={(e) => email.onChange(e)}
+                  onBlur={(e) => email.onBlur(e)}
                   required>
                </input>
+               {(email.isDirty && email.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
+               {(email.isDirty && email.minLengthError) && <span className="form__input-error">Не менее 2-х символов...</span>}
+               {(email.isDirty && email.emailError) && <span className="form__input-error">Неверный формат электронной почты</span>}
             </label>
             <label className="login__item">Пароль
                <input
@@ -57,13 +57,16 @@ function Login({ onLogin }) {
                   placeholder="Пароль"
                   minLength={6}
                   maxLength={30}
-                  value={formValue.password}
-                  onChange={handleChange}
+                  value={password.value}
+                  onChange={(e) => password.onChange(e)}
+                  onBlur={(e) => password.onBlur(e)}
                   required>
                </input>
-               <span className="form__input-error">Что-то пошло не так...</span>
+               {(password.isDirty && password.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
+               {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 6-ти символов...</span>}
             </label>
-            <button type="submit" className="form__button">Войти</button>
+            {!isSuccessSignIn && <span className="form__submit-error">При авторизации произошла ошибка</span>}
+            <button disabled={!email.inputValid || !password.inputValid} type="submit" className="form__button">Войти</button>
             <Link to="/signup" className="login__link">Ещё не зарегистрированы? <span className="login__link-accent">Регистрация</span></Link>
          </form>
       </main >

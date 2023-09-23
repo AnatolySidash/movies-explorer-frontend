@@ -2,7 +2,7 @@ import React from 'react';
 import MoviesCard from '../../components/MoviesCard/MoviesCard.js'
 import Preloader from './../Preloader/Preloader.js';
 
-function MoviesCardList({ movies, isLoading, isNoSearchResult, isError, onSaveButtonClick, savedMovies }) {
+function MoviesCardList({ movies, isNoSearchResult, isError, onSaveButtonClick, savedMovies, isLoading }) {
 
    return (
       <>

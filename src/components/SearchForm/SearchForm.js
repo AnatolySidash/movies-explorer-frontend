@@ -1,6 +1,7 @@
 import React from 'react';
+import moviesApi from '../../utils/MoviesApi.js';
 
-function SearchForm({ onSearchMovie, onCheckboxChecked }) {
+function SearchForm({ setNoSearchResult, setMovies, startPreloader, closePreloader }) {
 
    const [inputValue, setInputValue] = React.useState('');
    const [isCheckboxChecked, setCheckboxChecked] = React.useState(false);
@@ -13,22 +14,46 @@ function SearchForm({ onSearchMovie, onCheckboxChecked }) {
       setCheckboxChecked(event.target.checked);
    }
 
-   function handleSubmit(event) {
+   function handleSearchMoviesSubmit(event) {
       event.preventDefault();
-
-      onCheckboxChecked({
-         isCheckboxChecked: isCheckboxChecked,
+      startPreloader();
+      moviesApi.getMovies().then((movies) => {
+         localStorage.setItem('allMovies', JSON.stringify(movies));
+      }).catch((err) => {
+         console.error(`Ошибка загрузки фильмов: ${err}`);
+      });
+      const movies = JSON.parse(localStorage.getItem('allMovies'));
+      const filteredMovies = movies.filter((movie) => {
+         closePreloader();
+         if (isCheckboxChecked) {
+            return (
+               (movie.duration < 40 || movie.duration === 40) &&
+               (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+                  movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()))
+            );
+         } else {
+            return (
+               movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+               movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+            );
+         }
       })
 
-      onSearchMovie({
-         inputValue: inputValue,
-      });
+      localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+      localStorage.setItem('inputValue', inputValue);
+      localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
 
+      if (filteredMovies.length > 0) {
+         setMovies(filteredMovies);
+         setNoSearchResult(false);
+      } else {
+         setNoSearchResult(true);
+      }
    }
 
    return (
       <section className="search">
-         <form className="searchform" onSubmit={handleSubmit}>
+         <form className="searchform" onSubmit={handleSearchMoviesSubmit}>
             <fieldset className='searchform__fieldset'>
                <input
                   className="searchform__input"

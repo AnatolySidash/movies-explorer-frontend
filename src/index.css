@@ -145,6 +145,7 @@
 @import url(./components/Profile/profile__input.css);
 @import url(./components/Profile/profile__button.css);
 @import url(./components/Profile/profile__exit-button.css);
+@import url(./components/Register/form__submit-error.css);
 
 /* ------Register------ */
 

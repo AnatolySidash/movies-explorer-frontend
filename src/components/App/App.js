@@ -14,7 +14,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
 import { ProtectedRoute } from '../ProtectedRoute/ProtectedRoute.js';
 import * as auth from '../../utils/Auth.js';
 import mainApi from '../../utils/MainApi.js';
-import moviesApi from '../../utils/MoviesApi.js';
 
 
 function App() {
@@ -24,24 +23,17 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [isNoSearchResult, setNoSearchResult] = React.useState(true);
+  const [isNoSearchResult, setNoSearchResult] = React.useState(false);
   const [isError, setError] = React.useState(false);
   const [isSuccessSignUp, setSuccessSignUp] = React.useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
 
   const navigate = useNavigate();
 
+  console.log(movies);
+
   function openMobileMenu() {
     setMobileMenuOpen(true);
-  }
-
-  function startPreloader() {
-    setIsLoading(true);
-  }
-
-  function closePreloader() {
-    setIsLoading(false);
   }
 
   function handleInfoTooltipOpen() {
@@ -126,33 +118,21 @@ function App() {
       });
   }
 
-  function filterMovies(movies, inputValue) {
-    const filteredMovies = movies.filter((movie) => movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) || movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()));
-    return filteredMovies;
-  }
-
-  function handleSearchMoviesSubmit({ inputValue }) {
-    if (isLoggedIn) {
-      startPreloader();
-      const searchedMovies = moviesApi.getMovies()
-        .then((movies) => {
-          closePreloader();
-          setMovies(filterMovies(movies, inputValue));
-        })
-        .catch((err) => {
-          console.error(`Ошибка загрузки фильмов: ${err}`);
-        });
-      localStorage.setItem('searchMovies', JSON.stringify(searchedMovies));
-      localStorage.setItem('inputValue', JSON.stringify(inputValue));
-    }
-  }
-
-  function handleCheckboxFilter(isCheckboxChecked) {
-    if (isCheckboxChecked) {
-      const filteredMovies = movies.filter((movie) => movie.duration < 40 && movie.duration === 40);
-      return filteredMovies;
-    }
-  }
+  // function handleSearchMoviesSubmit({ inputValue }) {
+  //   if (isLoggedIn) {
+  //     startPreloader();
+  //     const searchedMovies = moviesApi.getMovies()
+  //       .then((movies) => {
+  //         closePreloader();
+  //         setMovies(filterMovies(movies, inputValue));
+  //       })
+  //       .catch((err) => {
+  //         console.error(`Ошибка загрузки фильмов: ${err}`);
+  //       });
+  //     localStorage.setItem('searchMovies', JSON.stringify(searchedMovies));
+  //     localStorage.setItem('inputValue', JSON.stringify(inputValue));
+  //   }
+  // }
 
   function handleUpdateUser({ name, email }) {
     mainApi.editProfile({ name: name, email: email })
@@ -185,13 +165,12 @@ function App() {
                   onBurgerClick={openMobileMenu}
                   isLoggedIn={isLoggedIn}
                   movies={movies}
-                  onSearchMovie={handleSearchMoviesSubmit}
-                  onCheckboxChecked={handleCheckboxFilter}
-                  isLoading={isLoading}
                   isNoSearchResult={isNoSearchResult}
                   isError={isError}
                   onSaveButtonClick={handleCardLike}
                   savedMovies={savedMovies}
+                  setNoSearchResult={setNoSearchResult}
+                  setMovies={setMovies}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />
