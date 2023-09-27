@@ -111,10 +111,6 @@
 
 @import url(./components/Movies/movies.css);
 
-/* ------SavedMovies------ */
-
-@import url(./components/SavedMovies/savedmovies.css);
-
 /* ------MoviesCardList------ */
 
 @import url(./components/MoviesCardList/moviescardlist.css);

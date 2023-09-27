@@ -1,6 +1,6 @@
 import React from 'react';
 
-function SavedMoviesCard({ movie, onSaveButtonClick, savedMovies }) {
+function SavedMoviesCard({ movie, onSaveButtonClick }) {
 
    let duration = movie.duration;
    let hours = Math.floor(duration / 60);

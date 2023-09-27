@@ -1,10 +1,11 @@
 import React from 'react';
 import moviesApi from '../../utils/MoviesApi.js';
 
-function SearchForm({ setNoSearchResult, setMovies, startPreloader, closePreloader }) {
+function SearchForm({ setNoSearchResult, setError, setMovies }) {
 
    const [inputValue, setInputValue] = React.useState('');
    const [isCheckboxChecked, setCheckboxChecked] = React.useState(false);
+   const [isInputEmpty, setInputEmpty] = React.useState(false);
 
    function handleSearchChange(event) {
       setInputValue(event.target.value);
@@ -14,17 +15,43 @@ function SearchForm({ setNoSearchResult, setMovies, startPreloader, closePreload
       setCheckboxChecked(event.target.checked);
    }
 
-   function handleSearchMoviesSubmit(event) {
-      event.preventDefault();
-      startPreloader();
+   React.useEffect(() => {
       moviesApi.getMovies().then((movies) => {
          localStorage.setItem('allMovies', JSON.stringify(movies));
       }).catch((err) => {
          console.error(`Ошибка загрузки фильмов: ${err}`);
+         setError(true);
       });
-      const movies = JSON.parse(localStorage.getItem('allMovies'));
-      const filteredMovies = movies.filter((movie) => {
-         closePreloader();
+   }, []);
+
+   React.useEffect(() => {
+      if (localStorage.getItem('inputValue')) {
+         setInputValue(localStorage.getItem('inputValue'));
+      } else {
+         setInputValue('');
+      }
+   }, []);
+
+   React.useEffect(() => {
+      if (localStorage.getItem('checkboxState')) {
+         setCheckboxChecked(JSON.parse(localStorage.getItem('checkboxState')));
+      } else {
+         setCheckboxChecked(false);
+      }
+   }, []);
+
+   React.useEffect(() => {
+      if (localStorage.getItem('filteredMovies')) {
+         setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
+      } else {
+         setMovies([]);
+      }
+   }, []);
+
+   function handleSearchMoviesSubmit(event) {
+      event.preventDefault();
+      const AllMovies = JSON.parse(localStorage.getItem('allMovies'));
+      const filteredMovies = AllMovies.filter((movie) => {
          if (isCheckboxChecked) {
             return (
                (movie.duration < 40 || movie.duration === 40) &&
@@ -44,16 +71,48 @@ function SearchForm({ setNoSearchResult, setMovies, startPreloader, closePreload
       localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
 
       if (filteredMovies.length > 0) {
-         setMovies(filteredMovies);
+         setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
          setNoSearchResult(false);
       } else {
          setNoSearchResult(true);
       }
+
+      if (!inputValue) {
+         setInputEmpty(true);
+      } else {
+         setInputEmpty(false);
+      }
    }
+
+   React.useEffect(() => {
+      const movies = JSON.parse(localStorage.getItem('allMovies'));
+      const filteredMovies = movies.filter((movie) => {
+         if (isCheckboxChecked) {
+            return (
+               (movie.duration < 40 || movie.duration === 40) &&
+               (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+                  movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()))
+            );
+         } else {
+            return (
+               movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+               movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+            );
+         }
+      })
+      if (isCheckboxChecked) {
+         localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
+         localStorage.setItem('inputValue', inputValue);
+         localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
+         setMovies(filteredMovies);
+      }
+      //eslint-disable-next-line
+   }, [isCheckboxChecked]);
+
 
    return (
       <section className="search">
-         <form className="searchform" onSubmit={handleSearchMoviesSubmit}>
+         <form className="searchform" noValidate onSubmit={handleSearchMoviesSubmit}>
             <fieldset className='searchform__fieldset'>
                <input
                   className="searchform__input"
@@ -66,6 +125,7 @@ function SearchForm({ setNoSearchResult, setMovies, startPreloader, closePreload
                </input>
                <button type="submit" className="searchform__button"></button>
             </fieldset>
+            {isInputEmpty && <span className="form__input-error">Введите ваш запрос</span>}
             <fieldset className='searchform__fieldset'>
                <input
                   className="searchform__checkbox"

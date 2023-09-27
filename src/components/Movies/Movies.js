@@ -4,7 +4,7 @@ import MoviesCardList from '../../components/MoviesCardList/MoviesCardList.js';
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked, isNoSearchResult, isError, onSaveButtonClick, savedMovies, setNoSearchResult, setMovies }) {
+function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked, isNoSearchResult, isError, onSaveButtonClick, savedMovies, setNoSearchResult, setError, setMovies }) {
 
    const [isLoading, setIsLoading] = React.useState(false);
 
@@ -27,6 +27,7 @@ function Movies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxCh
                onSearchMovie={onSearchMovie}
                onCheckboxChecked={onCheckboxChecked}
                setNoSearchResult={setNoSearchResult}
+               setError={setError}
                setMovies={setMovies}
                startPreloader={startPreloader}
                closePreloader={closePreloader}

@@ -1,10 +1,20 @@
 import React from 'react';
-import SearchForm from '../../components/SearchForm/SearchForm.js'
+import SavedMoviesSearchForm from '../../components/SavedMoviesSearchForm/SavedMoviesSearchForm.js'
 import SavedMoviesCardList from '../../components/SavedMoviesCardList/SavedMoviesCardList.js'
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function SavedMovies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheckboxChecked, isLoading, isNoSearchResult, isError, onSaveButtonClick, savedMovies }) {
+function SavedMovies({ onBurgerClick, isLoggedIn, isNoSearchResult, isError, onSaveButtonClick, savedMovies, setNoSearchResult, setSavedMovies }) {
+
+   const [isLoading, setIsLoading] = React.useState(false);
+
+   function startPreloader() {
+      setIsLoading(true);
+   }
+
+   function closePreloader() {
+      setIsLoading(false);
+   }
 
    return (
       <>
@@ -13,15 +23,17 @@ function SavedMovies({ onBurgerClick, isLoggedIn, movies, onSearchMovie, onCheck
             isLoggedIn={isLoggedIn}
          />
          <main className="savedmovies">
-            <SearchForm
-               onSearchMovie={onSearchMovie}
-               onCheckboxChecked={onCheckboxChecked}
+            <SavedMoviesSearchForm
+               setNoSearchResult={setNoSearchResult}
+               setSavedMovies={setSavedMovies}
+               startPreloader={startPreloader}
+               closePreloader={closePreloader}
+               savedMovies={savedMovies}
             />
             <SavedMoviesCardList
                isLoading={isLoading}
                isNoSearchResult={isNoSearchResult}
                isError={isError}
-               movies={movies}
                onSaveButtonClick={onSaveButtonClick}
                savedMovies={savedMovies}
             />

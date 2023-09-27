@@ -30,8 +30,6 @@ function App() {
 
   const navigate = useNavigate();
 
-  console.log(movies);
-
   function openMobileMenu() {
     setMobileMenuOpen(true);
   }
@@ -111,28 +109,13 @@ function App() {
     auth.clearCookie()
       .then((res) => {
         setLoggedIn(false);
+        localStorage.clear();
         navigate("/signin", { replace: true });
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
       });
   }
-
-  // function handleSearchMoviesSubmit({ inputValue }) {
-  //   if (isLoggedIn) {
-  //     startPreloader();
-  //     const searchedMovies = moviesApi.getMovies()
-  //       .then((movies) => {
-  //         closePreloader();
-  //         setMovies(filterMovies(movies, inputValue));
-  //       })
-  //       .catch((err) => {
-  //         console.error(`Ошибка загрузки фильмов: ${err}`);
-  //       });
-  //     localStorage.setItem('searchMovies', JSON.stringify(searchedMovies));
-  //     localStorage.setItem('inputValue', JSON.stringify(inputValue));
-  //   }
-  // }
 
   function handleUpdateUser({ name, email }) {
     mainApi.editProfile({ name: name, email: email })
@@ -167,6 +150,7 @@ function App() {
                   movies={movies}
                   isNoSearchResult={isNoSearchResult}
                   isError={isError}
+                  setError={setError}
                   onSaveButtonClick={handleCardLike}
                   savedMovies={savedMovies}
                   setNoSearchResult={setNoSearchResult}
@@ -179,9 +163,15 @@ function App() {
               <ProtectedRoute element={
                 <SavedMovies
                   onBurgerClick={openMobileMenu}
-                  onSaveButtonClick={handleCardDelete}
                   isLoggedIn={isLoggedIn}
+                  isNoSearchResult={isNoSearchResult}
+                  isError={isError}
+                  setError={setError}
+                  onSaveButtonClick={handleCardDelete}
                   savedMovies={savedMovies}
+                  setNoSearchResult={setNoSearchResult}
+                  setMovies={setMovies}
+                  setSavedMovies={setSavedMovies}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />
