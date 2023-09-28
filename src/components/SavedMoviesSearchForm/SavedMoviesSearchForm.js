@@ -1,10 +1,11 @@
 import React from 'react';
 
-function SavedMoviesSearchForm({ setNoSearchResult, setSavedMovies, savedMovies }) {
+function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMovies }) {
 
    const [savedInputValue, setSavedInputValue] = React.useState('');
    const [isSavedCheckboxChecked, setSavedCheckboxChecked] = React.useState(false);
    const [isInputEmpty, setInputEmpty] = React.useState(false);
+   const [notFirstRender, setNotFirstRender] = React.useState(false);
 
    function handleSearchChange(event) {
       setSavedInputValue(event.target.value);
@@ -15,26 +16,29 @@ function SavedMoviesSearchForm({ setNoSearchResult, setSavedMovies, savedMovies 
    }
 
    React.useEffect(() => {
-      setSavedMovies(savedMovies);
-   });
+      setTimeout(() => {
+         setNotFirstRender(true);
+      }, 100);
+   }, []);
 
    React.useEffect(() => {
-      const filteredSavedMovies = savedMovies.filter((movie) => {
-         if (isSavedCheckboxChecked) {
-            return (
-               (movie.duration < 40 || movie.duration === 40) &&
-               (movie.nameRU.toLowerCase().includes(savedInputValue.toLowerCase()) ||
-                  movie.nameEN.toLowerCase().includes(savedInputValue.toLowerCase()))
-            );
-         } else {
-            return (
-               movie.nameRU.toLowerCase().includes(savedInputValue.toLowerCase()) ||
-               movie.nameEN.toLowerCase().includes(savedInputValue.toLowerCase())
-            );
-         }
-      })
-
-      setSavedMovies(filteredSavedMovies);
+      if (notFirstRender) {
+         const filteredSavedMovies = savedMovies.filter((movie) => {
+            if (isSavedCheckboxChecked) {
+               return (
+                  (movie.duration < 40 || movie.duration === 40) &&
+                  (movie.nameRU.toLowerCase().includes(savedInputValue.toLowerCase()) ||
+                     movie.nameEN.toLowerCase().includes(savedInputValue.toLowerCase()))
+               );
+            } else {
+               return (
+                  movie.nameRU.toLowerCase().includes(savedInputValue.toLowerCase()) ||
+                  movie.nameEN.toLowerCase().includes(savedInputValue.toLowerCase())
+               );
+            }
+         })
+         setSavedMovies(filteredSavedMovies);
+      }
 
       //eslint-disable-next-line
    }, [isSavedCheckboxChecked]);
@@ -59,10 +63,11 @@ function SavedMoviesSearchForm({ setNoSearchResult, setSavedMovies, savedMovies 
       setSavedMovies(filteredSavedMovies);
 
       if (filteredSavedMovies.length > 0) {
-         setSavedMovies(filteredSavedMovies);;
-         setNoSearchResult(false);
+         setSavedMovies(filteredSavedMovies);
+         setNoSavedSearchResult(false);
       } else {
-         setNoSearchResult(true);
+         setSavedMovies([]);
+         setNoSavedSearchResult(true);
       }
 
       if (!savedInputValue) {
@@ -71,6 +76,10 @@ function SavedMoviesSearchForm({ setNoSearchResult, setSavedMovies, savedMovies 
          setInputEmpty(false);
       }
    }
+
+   React.useEffect(() => {
+      setSavedMovies(savedMovies);
+   }, []);
 
    return (
       <section className="search">

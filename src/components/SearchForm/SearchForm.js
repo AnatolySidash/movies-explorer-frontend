@@ -6,6 +6,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
    const [inputValue, setInputValue] = React.useState('');
    const [isCheckboxChecked, setCheckboxChecked] = React.useState(false);
    const [isInputEmpty, setInputEmpty] = React.useState(false);
+   const [notFirstRender, setNotFirstRender] = React.useState(false);
 
    function handleSearchChange(event) {
       setInputValue(event.target.value);
@@ -48,6 +49,12 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
       }
    }, []);
 
+   React.useEffect(() => {
+      setTimeout(() => {
+         setNotFirstRender(true);
+      }, 100);
+   }, []);
+
    function handleSearchMoviesSubmit(event) {
       event.preventDefault();
       const AllMovies = JSON.parse(localStorage.getItem('allMovies'));
@@ -74,6 +81,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
          setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
          setNoSearchResult(false);
       } else {
+         setMovies([]);
          setNoSearchResult(true);
       }
 
@@ -85,22 +93,22 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
    }
 
    React.useEffect(() => {
-      const movies = JSON.parse(localStorage.getItem('allMovies'));
-      const filteredMovies = movies.filter((movie) => {
-         if (isCheckboxChecked) {
-            return (
-               (movie.duration < 40 || movie.duration === 40) &&
-               (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
-                  movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()))
-            );
-         } else {
-            return (
-               movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
-               movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
-            );
-         }
-      })
-      if (isCheckboxChecked) {
+      if (notFirstRender) {
+         const movies = JSON.parse(localStorage.getItem('allMovies'));
+         const filteredMovies = movies.filter((movie) => {
+            if (isCheckboxChecked) {
+               return (
+                  (movie.duration < 40 || movie.duration === 40) &&
+                  (movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+                     movie.nameEN.toLowerCase().includes(inputValue.toLowerCase()))
+               );
+            } else {
+               return (
+                  movie.nameRU.toLowerCase().includes(inputValue.toLowerCase()) ||
+                  movie.nameEN.toLowerCase().includes(inputValue.toLowerCase())
+               );
+            }
+         })
          localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
          localStorage.setItem('inputValue', inputValue);
          localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));

@@ -4,7 +4,7 @@ import SavedMoviesCardList from '../../components/SavedMoviesCardList/SavedMovie
 import Header from './../Header/Header.js';
 import Footer from './../Footer/Footer.js';
 
-function SavedMovies({ onBurgerClick, isLoggedIn, isNoSearchResult, isError, onSaveButtonClick, savedMovies, setNoSearchResult, setSavedMovies }) {
+function SavedMovies({ onBurgerClick, isLoggedIn, isError, onSaveButtonClick, isNoSavedSearchResult, setNoSavedSearchResult, savedMovies, setSavedMovies }) {
 
    const [isLoading, setIsLoading] = React.useState(false);
 
@@ -24,17 +24,17 @@ function SavedMovies({ onBurgerClick, isLoggedIn, isNoSearchResult, isError, onS
          />
          <main className="savedmovies">
             <SavedMoviesSearchForm
-               setNoSearchResult={setNoSearchResult}
                setSavedMovies={setSavedMovies}
                startPreloader={startPreloader}
                closePreloader={closePreloader}
+               setNoSavedSearchResult={setNoSavedSearchResult}
                savedMovies={savedMovies}
             />
             <SavedMoviesCardList
                isLoading={isLoading}
-               isNoSearchResult={isNoSearchResult}
                isError={isError}
                onSaveButtonClick={onSaveButtonClick}
+               isNoSavedSearchResult={isNoSavedSearchResult}
                savedMovies={savedMovies}
             />
          </main >

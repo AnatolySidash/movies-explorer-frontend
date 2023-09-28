@@ -23,10 +23,11 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({});
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
-  const [isNoSearchResult, setNoSearchResult] = React.useState(false);
   const [isError, setError] = React.useState(false);
   const [isSuccessSignUp, setSuccessSignUp] = React.useState(false);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
+  const [isNoSearchResult, setNoSearchResult] = React.useState(false);
+  const [isNoSavedSearchResult, setNoSavedSearchResult] = React.useState(false);
 
   const navigate = useNavigate();
 
@@ -149,11 +150,11 @@ function App() {
                   isLoggedIn={isLoggedIn}
                   movies={movies}
                   isNoSearchResult={isNoSearchResult}
+                  setNoSearchResult={setNoSearchResult}
                   isError={isError}
                   setError={setError}
                   onSaveButtonClick={handleCardLike}
                   savedMovies={savedMovies}
-                  setNoSearchResult={setNoSearchResult}
                   setMovies={setMovies}
                 />}
                 isLoggedIn={isLoggedIn} />
@@ -164,12 +165,12 @@ function App() {
                 <SavedMovies
                   onBurgerClick={openMobileMenu}
                   isLoggedIn={isLoggedIn}
-                  isNoSearchResult={isNoSearchResult}
                   isError={isError}
                   setError={setError}
                   onSaveButtonClick={handleCardDelete}
+                  isNoSavedSearchResult={isNoSavedSearchResult}
+                  setNoSavedSearchResult={setNoSavedSearchResult}
                   savedMovies={savedMovies}
-                  setNoSearchResult={setNoSearchResult}
                   setMovies={setMovies}
                   setSavedMovies={setSavedMovies}
                 />}

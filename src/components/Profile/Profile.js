@@ -11,7 +11,7 @@ function Profile({ onBurgerClick, isLoggedIn, onUpdateUser, onLogout }) {
    const [submitButtonActive, setSubmitDataActive] = React.useState(false);
    const [isSuccessProfileUpdate, setSuccessProfileUpdate] = React.useState(false);
    const [isProfileDataChanged, setProfileDataChanged] = React.useState(false);
-   const [inputValid, setInputValid] = React.useState(false);
+   // const [inputValid, setInputValid] = React.useState(false);
 
    const name = useInput(currentUser.name, { isEmpty: true, minLength: 2, isUserName: true });
    const email = useInput(currentUser.email, { isEmpty: true, minLength: 2, isEmail: true });
