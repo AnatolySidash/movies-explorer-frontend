@@ -1,7 +1,7 @@
 import React from 'react';
 import moviesApi from '../../utils/MoviesApi.js';
 
-function SearchForm({ setNoSearchResult, setError, setMovies }) {
+function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, closePreloader }) {
 
    const [inputValue, setInputValue] = React.useState('');
    const [isCheckboxChecked, setCheckboxChecked] = React.useState(false);
@@ -17,12 +17,15 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
    }
 
    React.useEffect(() => {
-      moviesApi.getMovies().then((movies) => {
-         localStorage.setItem('allMovies', JSON.stringify(movies));
-      }).catch((err) => {
-         console.error(`Ошибка загрузки фильмов: ${err}`);
-         setError(true);
-      });
+      if (!localStorage.getItem('filteredMovies')) {
+         moviesApi.getMovies().then((movies) => {
+            localStorage.setItem('allMovies', JSON.stringify(movies));
+         }).catch((err) => {
+            console.error(`Ошибка загрузки фильмов: ${err}`);
+            setError(true);
+         });
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    React.useEffect(() => {
@@ -47,6 +50,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
       } else {
          setMovies([]);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    React.useEffect(() => {
@@ -57,6 +61,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
 
    function handleSearchMoviesSubmit(event) {
       event.preventDefault();
+      startPreloader();
       const AllMovies = JSON.parse(localStorage.getItem('allMovies'));
       const filteredMovies = AllMovies.filter((movie) => {
          if (isCheckboxChecked) {
@@ -90,6 +95,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
       } else {
          setInputEmpty(false);
       }
+      closePreloader();
    }
 
    React.useEffect(() => {
@@ -133,7 +139,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies }) {
                </input>
                <button type="submit" className="searchform__button"></button>
             </fieldset>
-            {isInputEmpty && <span className="form__input-error">Введите ваш запрос</span>}
+            {isInputEmpty && <span className="form__input-error">Нужно ввести ключевое слово</span>}
             <fieldset className='searchform__fieldset'>
                <input
                   className="searchform__checkbox"

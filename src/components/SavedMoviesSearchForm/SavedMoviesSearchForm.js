@@ -9,6 +9,7 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
 
    function handleSearchChange(event) {
       setSavedInputValue(event.target.value);
+
    }
 
    function handleCheckboxChange(event) {
@@ -39,7 +40,6 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
          })
          setSavedMovies(filteredSavedMovies);
       }
-
       //eslint-disable-next-line
    }, [isSavedCheckboxChecked]);
 
@@ -77,10 +77,6 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
       }
    }
 
-   React.useEffect(() => {
-      setSavedMovies(savedMovies);
-   }, []);
-
    return (
       <section className="search">
          <form className="searchform" noValidate onSubmit={handleSearchSavedMoviesSubmit}>
@@ -96,7 +92,7 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
                </input>
                <button type="submit" className="searchform__button"></button>
             </fieldset>
-            {isInputEmpty && <span className="form__input-error">Введите ваш запрос</span>}
+            {isInputEmpty && <span className="form__input-error">Нужно ввести ключевое слово</span>}
             <fieldset className='searchform__fieldset'>
                <input
                   className="searchform__checkbox"

@@ -34,7 +34,7 @@ export const useValidation = (value, validators) => {
       for (const validation in validators) {
          switch (validation) {
             case 'minLength':
-               value.length < validators[validation] ? setMinLengthError(true) : setMinLengthError(false);
+               value?.length < validators[validation] ? setMinLengthError(true) : setMinLengthError(false);
                break;
             case 'isEmpty':
                value ? setEmpty(false) : setEmpty(true);

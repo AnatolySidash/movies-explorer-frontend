@@ -17,3 +17,9 @@
 .moviescard__link:hover+.moviescard__button-delete {
    opacity: 1;
 }
+
+@media screen and (max-width: 768px) {
+   .moviescard__button-delete {
+      opacity: 1;
+   }
+}

@@ -76,15 +76,13 @@ function App() {
   }, [isLoggedIn]);
 
   React.useEffect(() => {
-    if (isLoggedIn) {
-      mainApi.getSavedMovies().then((movies) => {
-        setSavedMovies(movies);
-      })
-        .catch((err) => {
-          console.error(`Ошибка получения сохранённых фильмов: ${err}`);
-        });
-    }
-  }, [isLoggedIn]);
+    mainApi.getSavedMovies().then((movies) => {
+      setSavedMovies(movies);
+    })
+      .catch((err) => {
+        console.error(`Ошибка получения сохранённых фильмов: ${err}`);
+      });
+  }, [movies]);
 
   function checkToken() {
     auth.checkToken()
@@ -93,7 +91,6 @@ function App() {
           return;
         };
         setLoggedIn(true);
-        navigate("/", { replace: true });
       })
       .catch((err) => {
         setLoggedIn(false);
@@ -154,6 +151,7 @@ function App() {
                   isError={isError}
                   setError={setError}
                   onSaveButtonClick={handleCardLike}
+                  onLikeButtonClick={handleCardDelete}
                   savedMovies={savedMovies}
                   setMovies={setMovies}
                 />}

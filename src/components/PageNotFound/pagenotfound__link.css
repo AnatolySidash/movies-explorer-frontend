@@ -1,12 +1,15 @@
 .pagenotfound__link {
-   padding: 186px 0 60px;
-   margin: 0;
+   margin: 186px 0 60px;
+   padding: 0;
+   border: 0;
    text-decoration: none;
    font-family: 'Inter', Arial, sans-serif;
    font-style: normal;
    font-size: 14px;
    font-weight: 400;
    color: #4285F4;
+   cursor: pointer;
+   background-color: transparent;
    transition: opacity 0.3s ease-in-out;
 }
 
