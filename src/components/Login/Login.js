@@ -21,7 +21,7 @@ function Login({ onLogin }) {
       })
          .catch((err) => {
             setSuccessSignIn(false);
-            console.error(`Ошибка авторизации пользователя: ${err}`)
+            console.error(`Вы ввели неправильный логин или пароль: ${err}`)
          });
    };
 

@@ -23,7 +23,7 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
          .catch((err) => {
             setSuccessSignUp(false);
             onTooltipOpen();
-            console.error(`Ошибка регистрации нового пользователя: ${err}`)
+            console.error(`При регистрации пользователя произошла ошибка: ${err}`)
          });
    };
 
