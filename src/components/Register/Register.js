@@ -5,25 +5,36 @@ import { useInput } from '../../utils/Validation.js';
 import logo from '../../images/01_header/logo.svg';
 import * as auth from '../../utils/Auth.js';
 
-function Register({ setSuccessSignUp, onTooltipOpen }) {
+function Register({ onLogin }) {
+
+   const [isError, setError] = React.useState(false);
+   const [errorMessage, setErrorMessage] = React.useState({});
+
+   function handleErrorMessage() {
+      setError(true);
+   }
 
    const navigate = useNavigate();
 
    const name = useInput('', { isEmpty: true, minLength: 2, isUserName: true });
    const email = useInput('', { isEmpty: true, minLength: 2, isEmail: true });
-   const password = useInput('', { isEmpty: true, minLength: 6 });
+   const password = useInput('', { isEmpty: true, minLength: 8 });
 
    const handleSubmit = (event) => {
       event.preventDefault();
       auth.register(name.value, email.value, password.value).then((data) => {
-         navigate('/movies', { replace: true });
-         setSuccessSignUp(true);
-         onTooltipOpen();
+         console.log(data);
+         auth.login(data.email, password.value).then((data) => {
+            onLogin();
+            navigate('/movies', { replace: true });
+         })
       })
          .catch((err) => {
-            setSuccessSignUp(false);
-            onTooltipOpen();
-            console.error(`При регистрации пользователя произошла ошибка: ${err}`)
+            handleErrorMessage();
+            console.error(`Ошибка: ${err}`);
+            setErrorMessage({
+               message: err,
+            })
          });
    };
 
@@ -47,8 +58,8 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   maxLength={40}
                   required>
                </input>
-               {(name.isDirty && name.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
-               {(name.isDirty && name.minLengthError) && <span className="form__input-error">Не менее 2-х символов...</span>}
+               {(name.isDirty && name.isEmpty) && <span className="form__input-error">Поле не может быть пустым</span>}
+               {(name.isDirty && name.minLengthError) && <span className="form__input-error">Не менее 2-х символов</span>}
                {(name.isDirty && name.userNameError) && <span className="form__input-error">Неверный формат имени пользователя</span>}
             </label>
             <label className="register__item">E-mail
@@ -64,8 +75,8 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   maxLength={40}
                   required>
                </input>
-               {(email.isDirty && email.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
-               {(email.isDirty && email.minLengthError) && <span className="form__input-error">Не менее 2-х символов...</span>}
+               {(email.isDirty && email.isEmpty) && <span className="form__input-error">Поле не может быть пустым</span>}
+               {(email.isDirty && email.minLengthError) && <span className="form__input-error">Не менее 2-х символов</span>}
                {(email.isDirty && email.emailError) && <span className="form__input-error">Неверный формат электронной почты</span>}
             </label>
             <label className="register__item">Пароль
@@ -77,13 +88,14 @@ function Register({ setSuccessSignUp, onTooltipOpen }) {
                   value={password.value}
                   onChange={(e) => password.onChange(e)}
                   onBlur={(e) => password.onBlur(e)}
-                  minLength={6}
+                  minLength={8}
                   maxLength={30}
                   required>
                </input>
-               {(password.isDirty && password.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
-               {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 6-ти символов...</span>}
+               {(password.isDirty && password.isEmpty) && <span className="form__input-error">Поле не может быть пустым</span>}
+               {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 8-ми символов</span>}
             </label>
+            {isError && <span className="form__input-error form__input-error_main">{errorMessage.message}</span>}
             <button disabled={!name.inputValid || !email.inputValid || !password.inputValid} type="submit" className="form__button">Зарегистрироваться</button>
             <Link to="/signin" className="register__link">Уже зарегистрированы? <span className="register__link-accent">Войти</span></Link>
          </form>

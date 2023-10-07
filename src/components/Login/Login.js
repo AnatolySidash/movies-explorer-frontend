@@ -7,21 +7,28 @@ import * as auth from '../../utils/Auth.js';
 function Login({ onLogin }) {
 
    const navigate = useNavigate();
-   const [isSuccessSignIn, setSuccessSignIn] = React.useState(true);
+   const [isError, setError] = React.useState(false);
+   const [errorMessage, setErrorMessage] = React.useState({});
+
+   function handleErrorMessage() {
+      setError(true);
+   }
 
    const email = useInput('', { isEmpty: true, minLength: 2, isEmail: true });
-   const password = useInput('', { isEmpty: true, minLength: 6 });
+   const password = useInput('', { isEmpty: true, minLength: 8 });
 
    const handleSubmit = (event) => {
       event.preventDefault();
       auth.login(email.value, password.value).then((data) => {
          onLogin();
-         setSuccessSignIn(true);
          navigate('/movies');
       })
          .catch((err) => {
-            setSuccessSignIn(false);
-            console.error(`Вы ввели неправильный логин или пароль: ${err}`)
+            handleErrorMessage();
+            console.error(`Ошибка: ${err}`);
+            setErrorMessage({
+               message: err,
+            })
          });
    };
 
@@ -55,7 +62,7 @@ function Login({ onLogin }) {
                   type="password"
                   name="password"
                   placeholder="Пароль"
-                  minLength={6}
+                  minLength={8}
                   maxLength={30}
                   value={password.value}
                   onChange={(e) => password.onChange(e)}
@@ -63,9 +70,9 @@ function Login({ onLogin }) {
                   required>
                </input>
                {(password.isDirty && password.isEmpty) && <span className="form__input-error">Поле не может быть пустым...</span>}
-               {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 6-ти символов...</span>}
+               {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 8-ми символов...</span>}
             </label>
-            {!isSuccessSignIn && <span className="form__submit-error">При авторизации произошла ошибка</span>}
+            {isError && <span className="form__input-error form__input-error_main">{errorMessage.message}</span>}
             <button disabled={!email.inputValid || !password.inputValid} type="submit" className="form__button">Войти</button>
             <Link to="/signup" className="login__link">Ещё не зарегистрированы? <span className="login__link-accent">Регистрация</span></Link>
          </form>

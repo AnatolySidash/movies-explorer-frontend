@@ -7,7 +7,9 @@ class MainApi {
 
    _checkResponse(res) {
       if (!res.ok) {
-         return Promise.reject(`Ошибка: ${res.status}`);
+         return res.json().then((err) => {
+            return Promise.reject(err.message);
+         })
       }
       return res.json();
    }

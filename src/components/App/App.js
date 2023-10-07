@@ -7,7 +7,6 @@ import SavedMovies from './../SavedMovies/SavedMovies.js';
 import Profile from './../Profile/Profile.js';
 import Register from './../Register/Register.js';
 import Login from './../Login/Login.js';
-import InfoTooltip from './../InfoTooltip/InfoTooltip.js';
 import PageNotFound from './../PageNotFound/PageNotFound.js';
 import MobileMenu from './../MobileMenu/MobileMenu.js';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext.js';
@@ -24,8 +23,6 @@ function App() {
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
   const [isError, setError] = React.useState(false);
-  const [isSuccessSignUp, setSuccessSignUp] = React.useState(false);
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [isNoSearchResult, setNoSearchResult] = React.useState(false);
   const [isNoSavedSearchResult, setNoSavedSearchResult] = React.useState(false);
 
@@ -35,18 +32,22 @@ function App() {
     setMobileMenuOpen(true);
   }
 
-  function handleInfoTooltipOpen() {
-    setInfoTooltipOpen(true);
-  }
-
   function handleLogin() {
     setLoggedIn(true);
   }
 
   function closeAllPopups() {
     setMobileMenuOpen(false);
-    setInfoTooltipOpen(false);
   }
+
+  React.useEffect(() => {
+    mainApi.getUserInfo().then((data) => {
+      setCurrentUser(data.data);
+    })
+      .catch((err) => {
+        console.error(`Ошибка получения данных профиля: ${err}`);
+      });
+  }, []);
 
   function handleCardLike(movie) {
     const isLiked = savedMovies.some(i => i.movieId === movie.id);
@@ -65,22 +66,11 @@ function App() {
   }
 
   React.useEffect(() => {
-    if (isLoggedIn) {
-      mainApi.getUserInfo().then((data) => {
-        setCurrentUser(data.data);
-      })
-        .catch((err) => {
-          console.error(`Ошибка получения данных профиля: ${err}`);
-        });
-    }
-  }, [isLoggedIn]);
-
-  React.useEffect(() => {
     mainApi.getSavedMovies().then((movies) => {
       setSavedMovies(movies);
     })
       .catch((err) => {
-        console.error(`Ошибка получения сохранённых фильмов: ${err}`);
+        console.error(`Ошибка получения сохранённых фильмов: ${err.message}`);
       });
   }, [movies]);
 
@@ -94,7 +84,7 @@ function App() {
       })
       .catch((err) => {
         setLoggedIn(false);
-        console.error(`Ошибка токена: ${err}`);
+        console.error(`Ошибка: ${err}`);
       });
   }
 
@@ -112,17 +102,6 @@ function App() {
       })
       .catch((err) => {
         console.error(`Ошибка: ${err}`);
-      });
-  }
-
-  function handleUpdateUser({ name, email }) {
-    mainApi.editProfile({ name: name, email: email })
-      .then((data) => {
-        setCurrentUser(data.data);
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.error(`Ошибка получения данных профиля: ${err}`);
       });
   }
 
@@ -180,16 +159,16 @@ function App() {
                 <Profile
                   onBurgerClick={openMobileMenu}
                   isLoggedIn={isLoggedIn}
-                  onUpdateUser={handleUpdateUser}
                   onLogout={logout}
+                  setCurrentUser={setCurrentUser}
+                  closeAllPopups={closeAllPopups}
                 />}
                 isLoggedIn={isLoggedIn} />
             } />
 
             <Route path="/signup" element={
               <Register
-                setSuccessSignUp={setSuccessSignUp}
-                onTooltipOpen={handleInfoTooltipOpen}
+                onLogin={handleLogin}
               />
             } />
 
@@ -208,12 +187,6 @@ function App() {
           <MobileMenu
             isOpen={isMobileMenuOpen}
             onClose={closeAllPopups}
-          />
-
-          <InfoTooltip
-            isOpen={isInfoTooltipOpen}
-            onClose={closeAllPopups}
-            isSuccessSignUp={isSuccessSignUp}
           />
 
         </div>
