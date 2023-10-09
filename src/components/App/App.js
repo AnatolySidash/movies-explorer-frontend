@@ -40,15 +40,6 @@ function App() {
     setMobileMenuOpen(false);
   }
 
-  React.useEffect(() => {
-    mainApi.getUserInfo().then((data) => {
-      setCurrentUser(data.data);
-    })
-      .catch((err) => {
-        console.error(`Ошибка получения данных профиля: ${err}`);
-      });
-  }, []);
-
   function handleCardLike(movie) {
     const isLiked = savedMovies.some(i => i.movieId === movie.id);
 

@@ -49,18 +49,23 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
             handleErrorMessage();
             console.error(`Ошибка получения данных профиля: ${err}`);
             setErrorMessage({
-               message: err,
+               message: err
             })
          });
    }
 
+   async function userInfoUpdate() {
+      try {
+         const userInfo = await mainApi.getUserInfo();
+         setCurrentUser(userInfo.data);
+      } catch (err) {
+         console.error(`Ошибка получения данных профиля: ${err}`);
+      }
+   }
+
    React.useEffect(() => {
-      mainApi.getUserInfo().then((data) => {
-         setCurrentUser(data.data);
-      })
-         .catch((err) => {
-            console.error(`Ошибка получения данных профиля: ${err}`);
-         });
+      userInfoUpdate();
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    return (
