@@ -1,6 +1,5 @@
-// const baseUrl = "https://api.movies.sidash.nomoredomainsicu.ru";
+const baseUrl = "https://api.movies.sidash.nomoredomainsicu.ru";
 
-const baseUrl = "http://localhost:4000";
 
 function getResponseData(res) {
    if (!res.ok) {
