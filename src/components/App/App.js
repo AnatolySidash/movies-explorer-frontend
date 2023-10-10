@@ -57,6 +57,16 @@ function App() {
   }
 
   React.useEffect(() => {
+    mainApi.getUserInfo()
+      .then((data) => {
+        setCurrentUser(data.data);
+      })
+      .catch((err) => {
+        console.error(`Ошибка получения данных профиля: ${err}`);
+      })
+  }, []);
+
+  React.useEffect(() => {
     mainApi.getSavedMovies().then((movies) => {
       setSavedMovies(movies);
     })

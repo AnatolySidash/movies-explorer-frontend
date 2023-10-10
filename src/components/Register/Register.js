@@ -9,6 +9,7 @@ function Register({ onLogin }) {
 
    const [isError, setError] = React.useState(false);
    const [errorMessage, setErrorMessage] = React.useState({});
+   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
    function handleErrorMessage() {
       setError(true);
@@ -21,12 +22,14 @@ function Register({ onLogin }) {
    const password = useInput('', { isEmpty: true, minLength: 8 });
 
    const handleSubmit = (event) => {
+      setIsSubmitting(true);
       event.preventDefault();
       auth.register(name.value, email.value, password.value).then((data) => {
          console.log(data);
          auth.login(data.email, password.value).then((data) => {
             onLogin();
             navigate('/movies', { replace: true });
+            setIsSubmitting(false);
          })
       })
          .catch((err) => {
@@ -96,7 +99,7 @@ function Register({ onLogin }) {
                {(password.isDirty && password.minLengthError) && <span className="form__input-error">Не менее 8-ми символов</span>}
             </label>
             {isError && <span className="form__input-error form__input-error_main">{errorMessage.message}</span>}
-            <button disabled={!name.inputValid || !email.inputValid || !password.inputValid} type="submit" className="form__button">Зарегистрироваться</button>
+            <button disabled={!name.inputValid || !email.inputValid || !password.inputValid || isSubmitting} type="submit" className="form__button">Зарегистрироваться</button>
             <Link to="/signin" className="register__link">Уже зарегистрированы? <span className="register__link-accent">Войти</span></Link>
          </form>
       </main >

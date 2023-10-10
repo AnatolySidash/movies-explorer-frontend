@@ -14,6 +14,7 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
    const [isProfileDataChanged, setProfileDataChanged] = React.useState(false);
    const [isError, setError] = React.useState(false);
    const [errorMessage, setErrorMessage] = React.useState({});
+   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
    const name = useInput(currentUser.name, { isEmpty: true, minLength: 2, isUserName: true });
    const email = useInput(currentUser.email, { isEmpty: true, minLength: 2, isEmail: true });
@@ -27,6 +28,7 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
    }
 
    function handleSubmit(event) {
+      setIsSubmitting(true);
       event.preventDefault();
 
       if (currentUser.name !== name.value || currentUser.email !== email.value) {
@@ -37,6 +39,7 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
          setProfileDataChanged(true);
          setSuccessProfileUpdate(true);
       }
+      setIsSubmitting(false);
    }
 
    function handleUpdateUser({ name, email }) {
@@ -53,20 +56,6 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
             })
          });
    }
-
-   async function userInfoUpdate() {
-      try {
-         const userInfo = await mainApi.getUserInfo();
-         setCurrentUser(userInfo.data);
-      } catch (err) {
-         console.error(`Ошибка получения данных профиля: ${err}`);
-      }
-   }
-
-   React.useEffect(() => {
-      userInfoUpdate();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, []);
 
    return (
       <>
@@ -113,7 +102,7 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
                {!submitButtonActive && <button type="button" onClick={onUserDataChange} className="profile__button">Редактировать</button>}
                {(!isError && isSuccessProfileUpdate && isProfileDataChanged) && <span className="form__submit-error">Данные пользователя успешно обновлены</span>}
                {isError && <span className="form__input-error form__input-error_main">{errorMessage.message}</span>}
-               {submitButtonActive && <button disabled={!name.inputValid || !email.inputValid || (currentUser.name === name.value && currentUser.email === email.value)} type="submit" className="form__button">Сохранить</button>}
+               {submitButtonActive && <button disabled={!name.inputValid || !email.inputValid || (currentUser.name === name.value && currentUser.email === email.value) || isSubmitting} type="submit" className="form__button">Сохранить</button>}
             </form>
             <Link to="/">
                {!submitButtonActive && <button type="button" onClick={onLogout} className="profile__exit-button">Выйти из аккаунта</button>}

@@ -51,7 +51,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
       event.preventDefault();
       try {
          startPreloader();
-         if (!localStorage.getItem('allMovies')) {
+         if (localStorage.getItem('allMovies') === null) {
             const movies = await moviesApi.getMovies();
             localStorage.setItem('allMovies', JSON.stringify(movies));
          }
