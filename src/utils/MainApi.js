@@ -79,7 +79,7 @@ class MainApi {
 }
 
 const mainApi = new MainApi({
-   baseUrl: 'http://localhost:4000',
+   baseUrl: 'https://api.movies.sidash.nomoredomainsicu.ru',
    headers: {
       'Content-Type': 'application/json'
    }
@@ -87,4 +87,4 @@ const mainApi = new MainApi({
 
 export default mainApi;
 
-// baseUrl: 'https://api.movies.sidash.nomoredomainsicu.ru',
+// baseUrl: 'http://localhost:4000',

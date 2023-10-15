@@ -9,7 +9,6 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
 
    function handleSearchChange(event) {
       setSavedInputValue(event.target.value);
-
    }
 
    function handleCheckboxChange(event) {
@@ -20,6 +19,13 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
       setTimeout(() => {
          setNotFirstRender(true);
       }, 100);
+   }, []);
+
+   React.useEffect(() => {
+      const AllSavedMovies = JSON.parse(localStorage.getItem('allSavedMovies'));
+      setSavedMovies(AllSavedMovies);
+      setNoSavedSearchResult(false);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    React.useEffect(() => {
@@ -59,8 +65,6 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
             );
          }
       })
-
-      setSavedMovies(filteredSavedMovies);
 
       if (filteredSavedMovies.length > 0) {
          setSavedMovies(filteredSavedMovies);

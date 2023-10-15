@@ -16,8 +16,8 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
    const [errorMessage, setErrorMessage] = React.useState({});
    const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-   const name = useInput(currentUser.name, { isEmpty: true, minLength: 2, isUserName: true });
-   const email = useInput(currentUser.email, { isEmpty: true, minLength: 2, isEmail: true });
+   const name = useInput(currentUser.name || '', { isEmpty: true, minLength: 2, isUserName: true });
+   const email = useInput(currentUser.email || '', { isEmpty: true, minLength: 2, isEmail: true });
 
    function handleErrorMessage() {
       setError(true);
@@ -56,6 +56,11 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
             })
          });
    }
+
+   React.useEffect(() => {
+      name.setValue(currentUser.name || '');
+      email.setValue(currentUser.email || '');
+   }, [currentUser]);
 
    return (
       <>

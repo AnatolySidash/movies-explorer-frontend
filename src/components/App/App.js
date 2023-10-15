@@ -34,6 +34,7 @@ function App() {
 
   function handleLogin() {
     setLoggedIn(true);
+    localStorage.setItem('isLoggedIn', 'true');
   }
 
   function closeAllPopups() {
@@ -57,23 +58,28 @@ function App() {
   }
 
   React.useEffect(() => {
-    mainApi.getUserInfo()
-      .then((data) => {
-        setCurrentUser(data.data);
-      })
-      .catch((err) => {
-        console.error(`Ошибка получения данных профиля: ${err}`);
-      })
-  }, []);
+    if (isLoggedIn) {
+      mainApi.getUserInfo()
+        .then((data) => {
+          setCurrentUser(data.data);
+        })
+        .catch((err) => {
+          console.error(`Ошибка получения данных профиля: ${err}`);
+        })
+    }
+  }, [isLoggedIn]);
 
   React.useEffect(() => {
-    mainApi.getSavedMovies().then((movies) => {
-      setSavedMovies(movies);
-    })
-      .catch((err) => {
-        console.error(`Ошибка получения сохранённых фильмов: ${err.message}`);
-      });
-  }, [movies]);
+    if (isLoggedIn) {
+      mainApi.getSavedMovies().then((movies) => {
+        setSavedMovies(movies);
+        localStorage.setItem('allSavedMovies', JSON.stringify(movies));
+      })
+        .catch((err) => {
+          console.error(`Ошибка получения сохранённых фильмов: ${err.message}`);
+        });
+    }
+  }, [isLoggedIn]);
 
   function checkToken() {
     auth.checkToken()
@@ -81,9 +87,11 @@ function App() {
         if (!data) {
           return;
         };
+        localStorage.setItem('isLoggedIn', 'true');
         setLoggedIn(true);
       })
       .catch((err) => {
+        localStorage.clear();
         setLoggedIn(false);
         console.error(`Ошибка: ${err}`);
       });
@@ -99,6 +107,7 @@ function App() {
       .then((res) => {
         setLoggedIn(false);
         localStorage.clear();
+        setCurrentUser({});
         navigate("/", { replace: true });
       })
       .catch((err) => {
@@ -167,13 +176,15 @@ function App() {
                 isLoggedIn={isLoggedIn} />
             } />
 
-            <Route path="/signup" element={
+            <Route path="/signup" element={isLoggedIn ?
+              <Navigate to="/movies" replace /> :
               <Register
                 onLogin={handleLogin}
               />
             } />
 
-            <Route path="/signin" element={
+            <Route path="/signin" element={isLoggedIn ?
+              <Navigate to="/movies" replace /> :
               <Login
                 onLogin={handleLogin}
               />

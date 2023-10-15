@@ -26,7 +26,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
 
    React.useEffect(() => {
       if (localStorage.getItem('checkboxState')) {
-         setCheckboxChecked(JSON.parse(localStorage.getItem('checkboxState')));
+         setCheckboxChecked(localStorage.getItem('checkboxState'));
       } else {
          setCheckboxChecked(false);
       }
@@ -74,7 +74,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
 
             localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
             localStorage.setItem('inputValue', inputValue);
-            localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
+            localStorage.setItem('checkboxState', isCheckboxChecked);
 
             if (filteredMovies.length > 0) {
                setMovies(JSON.parse(localStorage.getItem('filteredMovies')));
@@ -114,7 +114,7 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
          })
          localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
          localStorage.setItem('inputValue', inputValue);
-         localStorage.setItem('checkboxState', JSON.stringify(isCheckboxChecked));
+         localStorage.setItem('checkboxState', isCheckboxChecked);
          setMovies(filteredMovies);
       }
       //eslint-disable-next-line
@@ -138,13 +138,24 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
             </fieldset>
             {isInputEmpty && <span className="form__input-error">Нужно ввести ключевое слово</span>}
             <fieldset className='searchform__fieldset'>
-               <input
-                  className="searchform__checkbox"
-                  id="checkbox__input"
-                  onChange={handleCheckboxChange}
-                  type="checkbox">
-               </input>
-               <label htmlFor="checkbox__input" className='searchform__label'>Короткометражки</label>
+               {isCheckboxChecked === 'true' ?
+                  <input
+                     className="searchform__checkbox"
+                     id="checkbox__input"
+                     onChange={handleCheckboxChange}
+                     type="checkbox"
+                     checked>
+                  </input> :
+                  <input
+                     className="searchform__checkbox"
+                     id="checkbox__input"
+                     onChange={handleCheckboxChange}
+                     type="checkbox">
+                  </input>
+               }
+               <label
+                  htmlFor="checkbox__input"
+                  className='searchform__label'>Короткометражки</label>
             </fieldset>
          </form >
       </section>
