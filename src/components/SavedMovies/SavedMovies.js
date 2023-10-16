@@ -29,6 +29,7 @@ function SavedMovies({ onBurgerClick, isLoggedIn, isError, onSaveButtonClick, is
                closePreloader={closePreloader}
                setNoSavedSearchResult={setNoSavedSearchResult}
                savedMovies={savedMovies}
+               isLoggedIn={isLoggedIn}
             />
             <SavedMoviesCardList
                isLoading={isLoading}

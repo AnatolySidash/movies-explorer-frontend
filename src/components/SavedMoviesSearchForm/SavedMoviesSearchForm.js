@@ -1,6 +1,7 @@
 import React from 'react';
+import mainApi from '../../utils/MainApi.js';
 
-function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMovies }) {
+function SavedMoviesSearchForm({ isLoggedIn, setNoSavedSearchResult, setSavedMovies, savedMovies }) {
 
    const [savedInputValue, setSavedInputValue] = React.useState('');
    const [isSavedCheckboxChecked, setSavedCheckboxChecked] = React.useState(false);
@@ -16,16 +17,19 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
    }
 
    React.useEffect(() => {
+      mainApi.getSavedMovies().then((movies) => {
+         setSavedMovies(movies);
+         setNoSavedSearchResult(false);
+      })
+         .catch((err) => {
+            console.error(`Ошибка получения сохранённых фильмов: ${err.message}`);
+         });
+   }, [setSavedMovies]);
+
+   React.useEffect(() => {
       setTimeout(() => {
          setNotFirstRender(true);
       }, 100);
-   }, []);
-
-   React.useEffect(() => {
-      const AllSavedMovies = JSON.parse(localStorage.getItem('allSavedMovies'));
-      setSavedMovies(AllSavedMovies);
-      setNoSavedSearchResult(false);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
    }, []);
 
    React.useEffect(() => {
@@ -44,7 +48,14 @@ function SavedMoviesSearchForm({ setNoSavedSearchResult, setSavedMovies, savedMo
                );
             }
          })
-         setSavedMovies(filteredSavedMovies);
+
+         if (filteredSavedMovies.length > 0) {
+            setSavedMovies(filteredSavedMovies);
+            setNoSavedSearchResult(false);
+         } else {
+            setSavedMovies([]);
+            setNoSavedSearchResult(true);
+         }
       }
       //eslint-disable-next-line
    }, [isSavedCheckboxChecked]);

@@ -73,7 +73,6 @@ function App() {
     if (isLoggedIn) {
       mainApi.getSavedMovies().then((movies) => {
         setSavedMovies(movies);
-        localStorage.setItem('allSavedMovies', JSON.stringify(movies));
       })
         .catch((err) => {
           console.error(`Ошибка получения сохранённых фильмов: ${err.message}`);

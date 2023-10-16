@@ -92,7 +92,6 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
          console.error(`Ошибка загрузки фильмов: ${err}`);
          setError(true);
       }
-
    }
 
    React.useEffect(() => {
@@ -115,7 +114,15 @@ function SearchForm({ setNoSearchResult, setError, setMovies, startPreloader, cl
          localStorage.setItem('filteredMovies', JSON.stringify(filteredMovies));
          localStorage.setItem('inputValue', inputValue);
          localStorage.setItem('checkboxState', isCheckboxChecked);
-         setMovies(filteredMovies);
+
+         if (filteredMovies.length > 0) {
+            setMovies(filteredMovies);
+            setNoSearchResult(false);
+         } else {
+            setMovies([]);
+            setNoSearchResult(true);
+         }
+
       }
       //eslint-disable-next-line
    }, [isCheckboxChecked]);
