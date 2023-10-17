@@ -29,6 +29,7 @@ function Profile({ onBurgerClick, isLoggedIn, onLogout, setCurrentUser, closeAll
 
    function handleSubmit(event) {
       setIsSubmitting(true);
+      setError(false);
       event.preventDefault();
 
       if (currentUser.name !== name.value || currentUser.email !== email.value) {

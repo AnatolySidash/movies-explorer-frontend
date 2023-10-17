@@ -19,8 +19,8 @@ export const useInput = (initialValue, validators) => {
       onChange,
       onBlur,
       isDirty,
-      ...valid,
-      setValue
+      setValue,
+      ...valid
    }
 }
 

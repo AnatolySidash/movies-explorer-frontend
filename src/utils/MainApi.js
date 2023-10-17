@@ -88,3 +88,5 @@ const mainApi = new MainApi({
 export default mainApi;
 
 // baseUrl: 'http://localhost:4000',
+
+// baseUrl: 'https://api.movies.sidash.nomoredomainsicu.ru',

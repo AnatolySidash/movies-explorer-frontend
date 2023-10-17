@@ -35,6 +35,7 @@ function Register({ onLogin }) {
          .catch((err) => {
             handleErrorMessage();
             console.error(`Ошибка: ${err}`);
+            setIsSubmitting(false);
             setErrorMessage({
                message: err,
             })
