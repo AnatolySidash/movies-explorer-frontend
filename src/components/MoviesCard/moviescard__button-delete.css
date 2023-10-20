@@ -1,13 +1,25 @@
 .moviescard__button-delete {
+   background: url(../../images/08_moviesCard/delete_button.svg) center no-repeat;
    width: 21px;
    height: 21px;
-   border: 0;
-   background: url(../../images/08_moviesCard/delete_button.svg);
+   border: none;
+   border-radius: 50px;
    cursor: pointer;
    transition: all 0.3s ease-in-out;
+   opacity: 0;
 }
 
 .moviescard__button-delete:hover {
    opacity: 0.8;
    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.moviescard__link:hover+.moviescard__button-delete {
+   opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+   .moviescard__button-delete {
+      opacity: 1;
+   }
 }

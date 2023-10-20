@@ -1,7 +1,9 @@
 .moviescard__duration {
-   padding: 4px 9px;
+   padding: 4px 0;
+   min-width: 52px;
    margin: 0;
    background-color: #2f2f2f;
+   text-align: center;
    font-family: 'Inter', Arial, sans-serif;
    font-style: normal;
    font-size: 11px;
